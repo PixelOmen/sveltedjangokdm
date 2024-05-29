@@ -2,6 +2,8 @@
   import svelteLogo from './assets/svelte.svg'
   import viteLogo from '/vite.svg'
   import Counter from './lib/Counter.svelte'
+
+  console.log(import.meta.env.VITE_SOME_KEY)
 </script>
 
 <main>
