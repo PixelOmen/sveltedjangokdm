@@ -8,8 +8,6 @@
 </script>
 
 <script lang="ts">
-    import { onMount } from 'svelte';
-
     import FolderIcon from "../../assets/folderIcon.svg"
     import CertificateIcon from "../../assets/certificate.svg";
 
@@ -25,7 +23,6 @@
     import Selected from "./Selected.svelte";
     import { historyHeaders } from './tableHeaders';
 
-    let csrf_token = '';
     const serverip = import.meta.env.VITE_API_SERVER_IP;
     const navSections = [
         {
@@ -37,24 +34,9 @@
         }
     ]
 
-    onMount( async () => {
-        try {
-            const res = await fetch(`${serverip}/csrf-token/`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                credentials: 'include'
-            });
-            const data = await res.json();
-            csrf_token = data.csrfToken;
-        } catch (e) {
-            console.error(e);
-        }
-    })
-
     // fetch(`${serverip}/test/`)
-    //     .then(res => console.log(res));
+    //     .then(res => res.json())
+    //     .then(data => console.log(data));
 
     let certData: ListItemData[] = [];
     // fetch('/api/certs')
@@ -162,7 +144,7 @@
         <LoadingIcon width="30px" height="30px"/>
     </div>
     <ErrorModal bind:this={errorModal} on:click={closeError}/>
-    <HeroSection {navSections}>
+    <HeroSection navSections={navSections}>
         <div class="certSection">
             <div style="width: 40%">
                 <SearchList listData={certData}
@@ -184,6 +166,7 @@
                 />
                 <Selected bind:this={selectedDKDMElem} selected={selectedDKDMValue}/>
             </div>
+        </div>
     </HeroSection>
     <section class="dateSection">
         <div class="sectionContainer">

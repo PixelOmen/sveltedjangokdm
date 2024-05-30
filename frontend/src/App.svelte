@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Router, Route } from "svelte-routing";
   import Home from "./pages/home.svelte";
-  import KDM from "./pages/kdm/KDM.svelte"; // linter error
+  import KDM from "./pages/kdm/Another.svelte";
 
   export let url = "";
 </script>
