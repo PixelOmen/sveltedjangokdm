@@ -1,15 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from django.views.generic import ListView
-from django.middleware.csrf import get_token
-from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import ListView, TemplateView
 
-@csrf_exempt
-def csrf_token(request):
-    response = JsonResponse({'csrf_token': get_token(request)})
-    return response
+class SvelteAppView(TemplateView):
+    template_name = 'index.html'
 
-# Create your views here.
 class TestList(ListView):
     template_name = 'base/test_list.html'
 
@@ -19,4 +14,4 @@ class TestList(ListView):
         return context
     
 def test_response(request):
-    return HttpResponse('Test Response')
+    return JsonResponse({'test': 'my response'})
