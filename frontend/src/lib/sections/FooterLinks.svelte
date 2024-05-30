@@ -2,13 +2,12 @@
     import NavAnchor from "../nav/NavAnchor.svelte";
     import type { AllNavSections } from "../nav/NavBar.svelte"
 
+    export let allsections: AllNavSections;
     export let paddingTop = "50px";
-    export let showBorder = true;
+    export let showBorder = false;
 
-    let allsections: AllNavSections = [];
-    fetch("/api/nav")
-        .then(res => res.json())
-        .then(output => allsections = output);
+    const ulDirection = allsections.length > 1 ? "ulColumn" : "ulRow";
+    const sectionWidth = allsections.length > 1 ? "" : "fullSection";
 </script>
 
 <footer class="footerSection">
@@ -18,11 +17,13 @@
         {/if}
         <nav>
             {#each allsections as footerSection}
-                <section>
-                    <h3>
-                        {footerSection.sectionName}
-                    </h3>
-                    <ul>
+                <section class={sectionWidth}>
+                    {#if allsections.length > 1}
+                        <h3>
+                            {footerSection.sectionName}
+                        </h3>
+                    {/if}
+                    <ul class={ulDirection}>
                         {#each footerSection.contents as data}
                             <NavAnchor {data}/>
                         {/each}
@@ -70,5 +71,16 @@
     }
     ul {
         font-size: 10pt;
-    }    
+    }
+
+    .fullSection {
+        width: 100%;
+    }
+
+    .ulRow {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+
+    }
 </style>

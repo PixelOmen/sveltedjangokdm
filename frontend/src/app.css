@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Montserrat";
+  src: url('/Montserrat-font/Montserrat-VariableFont_wght.ttf') format('truetype');
+}
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -19,7 +24,7 @@
 } 
 
 :root {
-  font-family: "MyVerdana";
+  font-family: "Montserrat";
   line-height: 1.5;
   font-weight: 400;
 

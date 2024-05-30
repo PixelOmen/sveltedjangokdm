@@ -8,6 +8,8 @@
 </script>
 
 <script lang="ts">
+    import { onMount } from 'svelte';
+
     import FolderIcon from "../../assets/folderIcon.svg"
     import CertificateIcon from "../../assets/certificate.svg";
 
@@ -23,25 +25,56 @@
     import Selected from "./Selected.svelte";
     import { historyHeaders } from './tableHeaders';
 
+    let csrf_token = '';
+    const serverip = import.meta.env.VITE_API_SERVER_IP;
+    const navSections = [
+        {
+            sectionName: "Nav",
+            contents: [
+                {displayName: "About", url: `${serverip}/about`},
+                {displayName: "Contact", url: `${serverip}/contact`},
+            ]
+        }
+    ]
+
+    onMount( async () => {
+        try {
+            const res = await fetch(`${serverip}/csrf-token/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include'
+            });
+            const data = await res.json();
+            csrf_token = data.csrfToken;
+        } catch (e) {
+            console.error(e);
+        }
+    })
+
+    // fetch(`${serverip}/test/`)
+    //     .then(res => console.log(res));
+
     let certData: ListItemData[] = [];
-    fetch('/api/certs')
-        .then(res => res.json())
-        .then(data => {certData = data});
+    // fetch('/api/certs')
+    //     .then(res => res.json())
+    //     .then(data => {certData = data});
 
     let dkdmData: ListItemData[] = [];
-    fetch('/api/dkdms')
-        .then(res => res.json())
-        .then(data => {dkdmData = data});
+    // fetch('/api/dkdms')
+    //     .then(res => res.json())
+    //     .then(data => {dkdmData = data});
 
     let historyData: KDMHistory[] = [];
-    function updateHistory(): void {
-        fetch('api/kdm/history')
-            .then(res => res.json())
-            .then(data => {
-                historyData = data;
-            });
-    }
-    updateHistory();
+    // function updateHistory(): void {
+    //     fetch('api/kdm/history')
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             historyData = data;
+    //         });
+    // }
+    // updateHistory();
     $: tableData = historyData;
 
     let showLoading = false;
@@ -117,7 +150,7 @@
         showLoading = true;
         coms.submitJSON('/api/kdm/submit', data).then(res => {
             console.log(res.status);
-            updateHistory();
+            // updateHistory();
             showLoading = false;
         });
     }
@@ -129,33 +162,28 @@
         <LoadingIcon width="30px" height="30px"/>
     </div>
     <ErrorModal bind:this={errorModal} on:click={closeError}/>
-    <HeroSection>
+    <HeroSection {navSections}>
         <div class="certSection">
             <div style="width: 40%">
-                {#if {certData}}
-                    <SearchList listData={certData}
-                        bind:selected={selectedCertValue}
-                        header="Certificate"
-                        boxHeight="200px"
-                        searchPlaceholder="Search Certs"
-                        fileIcon={CertificateIcon}
-                        dirIcon={FolderIcon}
-                    />
-                {/if}
+                <SearchList listData={certData}
+                    bind:selected={selectedCertValue}
+                    header="Certificate"
+                    boxHeight="200px"
+                    searchPlaceholder="Search Certs"
+                    fileIcon={CertificateIcon}
+                    dirIcon={FolderIcon}
+                />
                 <Selected bind:this={selectedCertElem} selected={selectedCertValue}/>
             </div>
             <div style="width: 40%">
-                {#if {dkdmData}}
-                    <SearchList listData={dkdmData}
-                        bind:selected={selectedDKDMValue}
-                        header="CPL DKDM"
-                        boxHeight="200px"
-                        searchPlaceholder="Search CPLs"
-                    />
-                {/if}
+                <SearchList listData={dkdmData}
+                    bind:selected={selectedDKDMValue}
+                    header="CPL DKDM"
+                    boxHeight="200px"
+                    searchPlaceholder="Search CPLs"
+                />
                 <Selected bind:this={selectedDKDMElem} selected={selectedDKDMValue}/>
             </div>
-        </div>
     </HeroSection>
     <section class="dateSection">
         <div class="sectionContainer">
@@ -194,10 +222,11 @@
         </section>
     {/if}
 </main>
-<FooterLinks/>
+<FooterLinks allsections={navSections}/>
 
 <style>
     main {
+        font-family: "Montserrat";
         position: relative;
         min-width: 900px;
     }

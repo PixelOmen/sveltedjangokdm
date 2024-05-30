@@ -1,11 +1,18 @@
-<script>
+<script context='module' lang='ts'>
+  import type { AllNavSections } from '../nav/NavBar.svelte'    
+</script>
+
+
+<script lang="ts">
     import NavBar from '../nav/NavBar.svelte'
+
+    export let navSections: AllNavSections;
     export let paddingTop = "60px";
     export let paddingBottom = "30px";
 </script>
 
 <main>
-    <NavBar/>
+    <NavBar {navSections}/>
     <section class="container" style="
       padding-top: {paddingTop};
       padding-bottom: {paddingBottom};
@@ -16,7 +23,7 @@
   
 <style>
   main {
-    background: radial-gradient(ellipse at 80% -50%, #0f2e36 0%, #0e2830 30%, transparent 100%),
+    background: radial-gradient(ellipse at 80% -50%, #0f2e36 0%, #0e1d30 30%, transparent 100%),
                 radial-gradient(ellipse at 10% 50%, #0f2e36 0%, #0a1c21 40%);
     padding-top: 30px;
   }

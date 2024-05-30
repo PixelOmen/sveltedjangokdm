@@ -22,6 +22,7 @@
 <style>
     a {
         text-decoration: none;
+        font-weight: 500;
         color: rgb(225, 225, 225);
     }
     a:hover {

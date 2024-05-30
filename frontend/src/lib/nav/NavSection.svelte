@@ -71,6 +71,11 @@
     .navSection {
         position: relative;
     }
+    
+    .navSection > button > span {
+        font-family: "montserrat";
+        font-weight: 600;
+    }
 
     ul {
         z-index: 100;
@@ -78,14 +83,15 @@
         flex-direction: column;
         position: absolute;
         top: 35px;
-        left: 5px;
+        right: -20px;
         justify-content: space-between;
         width: max-content;
         min-width: 60%;
-        padding: 20px;
+        padding: 15px;
         gap: 5px;
         background-color: #1d3a43;
         border-radius: 5px;
+        gap: -50px;
         transition: gap 0.3s;
         overflow: hidden;
         box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.345);

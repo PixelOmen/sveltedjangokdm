@@ -8,10 +8,10 @@
 
 <script lang='ts'>
     import { onMount, onDestroy } from 'svelte';
-    import logo from '../../assets/logo.ico';
+    import logo from '../../assets/KDM_logo.png';
     import NavSection from './NavSection.svelte';
     
-    let allsections: AllNavSections = [];
+    export let navSections: AllNavSections;
 
     let openSection: string|null = null;
     function setOpenSection(e: CustomEvent): void {
@@ -26,9 +26,6 @@
     }
 
     onMount(() => {
-        fetch("/api/nav")
-        .then(res => res.json())
-        .then(output => allsections = output);
         window.addEventListener('click', clickOutside)
     })
     onDestroy(() => {
@@ -38,22 +35,22 @@
 
 <header class="container">
     <a href="/">
-        <img src={logo} alt="Main Logo" width="50" height="50">
+        <img src={logo} alt="Main Logo" width="40" height="40">
         <span>
-            ROUNDABOUT
+            KDM-GEN
         </span>
     </a>
     <nav bind:this={navElement}>
-        <ul>
-            {#each allsections as navsection}
+        {#each navSections as section}
+            <ul>
                 <NavSection
-                    displayText={navsection.sectionName}
-                    sectionData={navsection.contents}
-                    sectionVisible={openSection === navsection.sectionName}
+                    displayText={section.sectionName}
+                    sectionData={section.contents}
+                    sectionVisible={openSection === section.sectionName}
                     on:navSectionOpen={setOpenSection}
                 />
-            {/each}
-        </ul>
+            </ul>
+        {/each}
     </nav>
 </header>
 
@@ -65,6 +62,7 @@
         max-width: 80%;
         margin-left: auto;
         margin-right: auto;
+        padding: 10px 0px;
     }
     a {
         text-decoration: none;
@@ -76,11 +74,10 @@
         color: rgb(237, 237, 237);
         margin-left: 5px;
         font-size: 25pt;
-        font-weight: 900;
-        letter-spacing: -2px;
-        font-stretch: ultra-condensed;
+        font-weight: 600;
     }
     ul {
+        padding-bottom: 4px;
         display: flex;
         gap: 10px;
     }
