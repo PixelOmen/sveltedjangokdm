@@ -1,8 +1,6 @@
 <script context="module" lang="ts">
     import type { SvelteComponent } from 'svelte';
 
-    import type { KDMHistory } from './kdmHistory'
-
     import * as coms from '../../lib/coms';
     import type { ListItemData } from '../../lib/search/ListItem.svelte'
 </script>
@@ -11,30 +9,21 @@
     import FolderIcon from "../../assets/folderIcon.svg"
     import CertificateIcon from "../../assets/certificate.svg";
 
+    import HeroSection from "../../lib/sections/HeroSection.svelte";
     import LoadingIcon from '../../lib/ui/LoadingIcon.svelte';
     import ErrorModal from '../../lib/ui/ErrorModal.svelte';
-    import HeroSection from "../../lib/sections/HeroSection.svelte";
     import SearchList from "../../lib/search/SearchList.svelte";
     import DateSelect from '../../lib/dates/DateSelect.svelte';
     import ImportantBtn from '../../lib/ui/ImportantBtn.svelte';
-    import DataTable from '../../lib/tables/DataTable.svelte';
     import FooterLinks from '../../lib/sections/FooterLinks.svelte';
     
     import Selected from "./Selected.svelte";
-    import { historyHeaders } from './tableHeaders';
 
-    const serverip = import.meta.env.VITE_API_SERVER_IP;
-    const navSections = [
-        {
-            sectionName: "Nav",
-            contents: [
-                {displayName: "About", url: `${serverip}/about`},
-                {displayName: "Contact", url: `${serverip}/contact`},
-            ]
-        }
+    const navLinks = [
+        {displayName: "Logout", url: `/about`},
     ]
 
-    // fetch(`${serverip}/test/`)
+    // fetch(`${serverip}/api/test/`)
     //     .then(res => res.json())
     //     .then(data => console.log(data));
 
@@ -47,17 +36,6 @@
     // fetch('/api/dkdms')
     //     .then(res => res.json())
     //     .then(data => {dkdmData = data});
-
-    let historyData: KDMHistory[] = [];
-    // function updateHistory(): void {
-    //     fetch('api/kdm/history')
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             historyData = data;
-    //         });
-    // }
-    // updateHistory();
-    $: tableData = historyData;
 
     let showLoading = false;
 
@@ -144,7 +122,7 @@
         <LoadingIcon width="30px" height="30px"/>
     </div>
     <ErrorModal bind:this={errorModal} on:click={closeError}/>
-    <HeroSection navSections={navSections}>
+    <HeroSection navLinks={navLinks}>
         <div class="certSection">
             <div style="width: 40%">
                 <SearchList listData={certData}
@@ -176,36 +154,23 @@
                 <DateSelect bind:this={timezoneComp} isTimezone={true} header="Timezone"/>
             </div>
             <div class="outputContainer">
-                <div style="width: 130px; margin-right: auto; margin-left: auto;">
+                <div>
                     {#if showLoading}
                         <LoadingIcon width="30px" height="30px"/>
                     {:else}
                         <ImportantBtn
                             on:click={submit}
-                            content="Submit"
+                            content="Generate"
                             fontSize="12pt"
-                            padding="3px 12px"
+                            padding="10px 150px"
                         />
                     {/if}
                 </div>
             </div>
         </div>
     </section>
-    {#if historyData.length > 0}
-        <section class="historySection">
-            <div class="sectionContainer">
-                <h3 id="historyHeader">
-                    History
-                </h3>
-                <DataTable
-                    headers={historyHeaders}
-                    tableData={tableData}
-                    on:tableCellClick={showError}/>
-            </div>
-        </section>
-    {/if}
+    <FooterLinks navLinks={navLinks} paddingTop="50px" showBorder={false}/>
 </main>
-<FooterLinks allsections={navSections}/>
 
 <style>
     main {
@@ -248,21 +213,13 @@
     }
 
     .outputContainer {
+        margin-top: 20px;
         display: flex;
-        align-items: flex-end;
+        justify-content: center;
+        align-items: center;
         width: 800px;
         padding: 5px;
         gap: 10px
-    }
-
-    .historySection {
-        padding: 20px 0px;
-        width: 100%;
-        background: radial-gradient(ellipse at 50% -10%, #16323a 0%, #12232E 50%, transparent), 
-                    linear-gradient(0deg, #12232E 10%, #5a2251 99%);        
-    }
-    #historyHeader {
-        margin: 0;
     }
 
     .hidden {

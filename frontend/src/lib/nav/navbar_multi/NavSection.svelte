@@ -1,11 +1,11 @@
 <script context="module" lang='ts'>
-    import type { AnchorData } from './NavAnchor.svelte'
+    import type { AnchorData } from './NavAnchor_Section.svelte'
     export type SectionLinks = AnchorData[];
 </script>
 
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
-    import NavAnchor from './NavAnchor.svelte';
+    import NavAnchor from './NavAnchor_Section.svelte';
 
     export let sectionVisible: boolean = false;
     export let sectionData: SectionLinks;

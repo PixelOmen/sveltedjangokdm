@@ -1,18 +1,18 @@
 <script context='module' lang='ts'>
-  import type { AllNavSections } from '../nav/NavBar.svelte'    
+  import type { NavLinks } from '../nav/NavBar.svelte'    
 </script>
 
 
 <script lang="ts">
     import NavBar from '../nav/NavBar.svelte'
 
-    export let navSections: AllNavSections;
+    export let navLinks: NavLinks;
     export let paddingTop = "60px";
     export let paddingBottom = "30px";
 </script>
 
 <main>
-    <NavBar {navSections}/>
+    <NavBar navLinks={navLinks}/>
     <section class="container" style="
       padding-top: {paddingTop};
       padding-bottom: {paddingBottom};

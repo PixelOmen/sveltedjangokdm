@@ -1,36 +1,14 @@
 <script context='module' lang='ts'>
-    import type { SectionLinks } from './NavSection.svelte';
-    export type AllNavSections = {
-        sectionName: string;
-        contents: SectionLinks;
-    }[];    
+    import type { AnchorData } from './NavAnchor.svelte';
+
+    export type NavLinks = AnchorData[];    
 </script>
 
 <script lang='ts'>
-    import { onMount, onDestroy } from 'svelte';
     import logo from '../../assets/KDM_logo.png';
-    import NavSection from './NavSection.svelte';
+    import NavAnchor from './NavAnchor.svelte';
     
-    export let navSections: AllNavSections;
-
-    let openSection: string|null = null;
-    function setOpenSection(e: CustomEvent): void {
-        openSection = openSection === e.detail ? null : e.detail;
-    }
-
-    let navElement: HTMLElement;
-    function clickOutside(e: Event): void {
-        if (navElement && !navElement.contains(e.target as Node)) {
-            openSection = null;
-        }
-    }
-
-    onMount(() => {
-        window.addEventListener('click', clickOutside)
-    })
-    onDestroy(() => {
-        window.removeEventListener('click', clickOutside)
-    })
+    export let navLinks: NavLinks;
 </script>
 
 <header class="container">
@@ -40,22 +18,18 @@
             KDM-GEN
         </span>
     </a>
-    <nav bind:this={navElement}>
-        {#each navSections as section}
-            <ul>
-                <NavSection
-                    displayText={section.sectionName}
-                    sectionData={section.contents}
-                    sectionVisible={openSection === section.sectionName}
-                    on:navSectionOpen={setOpenSection}
-                />
-            </ul>
-        {/each}
+    <nav>
+        <ul>
+            {#each navLinks as link}
+                <NavAnchor data={link}/>
+            {/each}
+        </ul>
     </nav>
 </header>
 
 <style>
     .container {
+        font-family: 'montserrat', sans-serif;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -77,14 +51,13 @@
         font-weight: 600;
     }
     ul {
+        font-family: 'montserrat', sans-serif;
         padding-bottom: 4px;
         display: flex;
-        gap: 10px;
+        gap: 20px;
     }
+
     @media (max-width: 1200px) {
-        .container {
-            max-width: 90%;
-        }
         a > span {
             font-size: 20pt;
         }

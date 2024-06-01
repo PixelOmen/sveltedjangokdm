@@ -1,13 +1,13 @@
 <script lang='ts'>
     import NavAnchor from "../nav/navbar_multi/NavAnchor_Section.svelte";
-    import type { NavLinks } from "../nav/NavBar.svelte"
+    import type { AllNavSections } from "../nav/NavBar.svelte"
 
-    export let navLinks: NavLinks;
+    export let allsections: AllNavSections;
     export let paddingTop = "50px";
     export let showBorder = false;
 
-    const ulDirection = navLinks.length > 1 ? "ulColumn" : "ulRow";
-    const sectionWidth = navLinks.length > 1 ? "" : "fullSection";
+    const ulDirection = allsections.length > 1 ? "ulColumn" : "ulRow";
+    const sectionWidth = allsections.length > 1 ? "" : "fullSection";
 </script>
 
 <footer class="footerSection">
@@ -16,10 +16,17 @@
             <hr />
         {/if}
         <nav>
-            {#each navLinks as footerSection}
+            {#each allsections as footerSection}
                 <section class={sectionWidth}>
+                    {#if allsections.length > 1}
+                        <h3>
+                            {footerSection.sectionName}
+                        </h3>
+                    {/if}
                     <ul class={ulDirection}>
-                        <NavAnchor data={footerSection}/>
+                        {#each footerSection.contents as data}
+                            <NavAnchor {data}/>
+                        {/each}
                     </ul>
                 </section>
             {/each}
@@ -57,6 +64,10 @@
         width: 100%;
         margin-left: auto;
         margin-right: auto;
+    }
+    h3 {
+        font-weight: bold;
+        margin: 10px 0px;
     }
     ul {
         font-size: 10pt;

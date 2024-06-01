@@ -13,7 +13,7 @@
 
 
 <li>
-    <a href={data.url} target={atarget} class="link">
+    <a href={data.url} target={atarget}>
         {data.displayName}
     </a>
 </li>
@@ -21,28 +21,11 @@
 
 <style>
     a {
-        position: relative;
         text-decoration: none;
         font-weight: 500;
         color: rgb(225, 225, 225);
     }
     a:hover {
         color: #7acfde;
-    }
-
-    .link::after {
-        content: '';
-        position: absolute;
-        left: 50%;
-        bottom: -5px;
-        background-color: #7acfde;
-        height: 1px;
-        width: 0;
-        transition: width 0.2s ease-in-out;
-        transform: translate(-50%);
-    }
-
-    .link:hover::after {
-        width: 100%;
     }
 </style>

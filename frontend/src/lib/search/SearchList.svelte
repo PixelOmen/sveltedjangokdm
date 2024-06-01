@@ -7,6 +7,7 @@
     import { createEventDispatcher } from 'svelte';
     import SearchBox from './SearchBox.svelte';
     import ListItem from './ListItem.svelte';
+    import ImportantBtn from '../ui/ImportantBtn.svelte';
 
     export let boxWidth = "auto";
     export let boxHeight = "auto";
@@ -35,33 +36,85 @@
         }
     }
 
+    let fileSelectInputActual: HTMLInputElement;
+    function openFileSelect() {
+        fileSelectInputActual.click();
+    }
+    $: {
+        if (fileSelectInputActual) {
+            fileSelectInputActual.addEventListener('change', () => {
+                if (fileSelectInputActual.files?.length === 0 || fileSelectInputActual.files === null) return;
+                let file = fileSelectInputActual.files[0];
+                console.log(`File selected: ${file.name}`)
+                dispatch("fileAdded", {header: header, file: file});
+            });
+        }
+    }
+
+
+
     export let selected: ListItemData|null = null;
     const dispatch = createEventDispatcher();
     function searchItemSelected(e: CustomEvent) {
         selected = e.detail;
         dispatch("searchItemSelected", {header: header, data: e.detail});
     }
+
 </script>
 
 <div class="container" style="width: {boxWidth}">
     <h3 style="margin-bottom: 10px">
         {header}
     </h3>
-    <SearchBox bind:searchInput={searchInput} boxWidth="auto" placeholder="{searchPlaceholder}"/>
+    <div class="searchAddContainer">
+        <SearchBox bind:searchInput={searchInput} boxWidth="100%" placeholder="{searchPlaceholder}"/>
+        <div style="margin-left: 10px;">
+            <ImportantBtn
+                on:click={openFileSelect}
+                content="+"
+                fontSize="16pt"
+                padding="1px 10px"
+                hasShadow={false}
+            />
+        </div>
+    </div>
     <ul style="height: {boxHeight}">
-        {#each filteredData as item}
+        {#if filteredData.length === 0}
+            <li style="text-align: center; margin-top: 10px">
+                Press 
+                <ImportantBtn
+                    on:click={openFileSelect}
+                    content="+"
+                    fontSize="10pt"
+                    padding="5px 10px"
+                    hasShadow={false}
+                />
+                to add a new item
+            </li>
+        {:else}
+            {#each filteredData as item}
             <ListItem 
                 data={item}
                 on:searchItemSelected={searchItemSelected}
                 {fileIcon} {dirIcon}
             />
-        {/each}
+            {/each}
+        {/if}
     </ul>
+    <input bind:this={fileSelectInputActual} type="file" class="fileSelect-btn-actual hidden" accept=".pem,.crt,.cer" multiple={false}>
 </div>
 
 <style>
+    .hidden {
+        display: none;
+    }
+
     .container {
         flex-direction: column;
+    }
+
+    .searchAddContainer {
+        display: flex;
     }
 
     h3 {

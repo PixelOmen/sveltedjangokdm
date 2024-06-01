@@ -7,6 +7,7 @@
     export let searchInput: HTMLInputElement;
 </script>
 
+
 <div class="container" style="width: {boxWidth}">
     <img src="{SearchIcon}" alt="Search Icon" width="20px">
     <input bind:this={searchInput} type="text" placeholder="{placeholder}">
