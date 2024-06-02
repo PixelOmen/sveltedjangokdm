@@ -1,7 +1,45 @@
-POST http://127.0.0.1:8000/api/login/
+POST http://127.0.0.1:8000/api/test_post
 Content-Type: application/json
+Authorization: Token 1229950b037e0b4180f6658ec6451c9be91b81d4
 
 {
     "username": "admin",
     "password": "admin"
 }
+
+###
+
+POST http://127.0.0.1:8000/api/login
+Content-Type: application/json
+
+{
+    "username": "eacosta",
+    "password": "mypassword"
+}
+
+###
+
+POST http://127.0.0.1:8000/api/logout
+Content-Type: application/json
+Authorization: Token 1229950b037e0b4180f6658ec6451c9be91b81d4
+
+{}
+
+###
+
+POST http://127.0.0.1:8000/api/signup
+Content-Type: application/json
+
+{
+    "username": "eacosta",
+    "password": "mypassword",
+    "email": "pixelomen@gmail.com"
+}
+
+###
+
+GET http://127.0.0.1:8000/api/test_token
+Content-Type: application/json
+Authorization: Token 1229950b037e0b4180f6658ec6451c9be91b81d4
+
+{}

@@ -1,11 +1,13 @@
 <script context="module" lang="ts">
-    import type { SvelteComponent } from 'svelte';
+    import { onMount, type SvelteComponent } from 'svelte';
+    import type { ListItemData } from '../../lib/search/ListItem.svelte'
 
     import * as coms from '../../lib/coms';
-    import type { ListItemData } from '../../lib/search/ListItem.svelte'
 </script>
 
 <script lang="ts">
+    import { navigate } from 'svelte-routing';
+
     import FolderIcon from "../../assets/folderIcon.svg"
     import CertificateIcon from "../../assets/certificate.svg";
 
@@ -19,23 +21,15 @@
     
     import Selected from "./Selected.svelte";
 
+    const SERVER_IP = import.meta.env.VITE_API_SERVER_IP;
+
     const navLinks = [
-        {displayName: "Logout", url: `/about`},
+        {displayName: "Logout", url: `/logout`},
     ]
 
-    // fetch(`${serverip}/api/test/`)
-    //     .then(res => res.json())
-    //     .then(data => console.log(data));
-
     let certData: ListItemData[] = [];
-    // fetch('/api/certs')
-    //     .then(res => res.json())
-    //     .then(data => {certData = data});
 
     let dkdmData: ListItemData[] = [];
-    // fetch('/api/dkdms')
-    //     .then(res => res.json())
-    //     .then(data => {dkdmData = data});
 
     let showLoading = false;
 
@@ -50,6 +44,10 @@
     let timezoneComp: SvelteComponent;
     let outputDirComp: SvelteComponent;
 
+    onMount(() => {
+        
+    });
+
     function showError(e: CustomEvent): void {
         errorModal.setError(e.detail);
         errorModal.show();
@@ -57,6 +55,28 @@
 
     function closeError() {
         errorModal.hide();
+    }
+
+    async function test(e: CustomEvent) {
+        if (!e.detail.file) return;
+        let formData = new FormData();
+        formData.append('file', e.detail.file);
+
+        try {
+            let res = await fetch(`${SERVER_IP}/api/test_post`, {
+                method: 'POST',
+                body: formData,
+                credentials: 'include'
+            });
+            if (res.ok) {
+                let data = await res.json();
+                console.log(data);
+            } else {
+                showError(new CustomEvent('error', {detail: `Failed to upload cert: ${res.status}`}));
+            }
+        } catch (e) {
+            showError(new CustomEvent('error', {detail: 'Failed to fetch certs'}));
+        }
     }
 
     async function submit() {
@@ -126,6 +146,7 @@
         <div class="certSection">
             <div style="width: 40%">
                 <SearchList listData={certData}
+                    on:fileAdded={test}
                     bind:selected={selectedCertValue}
                     header="Certificate"
                     boxHeight="200px"
