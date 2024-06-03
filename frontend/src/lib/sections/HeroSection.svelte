@@ -23,6 +23,7 @@
   
 <style>
   main {
+    min-width: 1200px;
     padding-top: 30px;
   }
   section {

@@ -1,8 +1,16 @@
 <script lang="ts">
-    import HeroSection from "../lib/sections/HeroSection.svelte";
     import { get } from "svelte/store";
-
+    import { navigate } from "svelte-routing";
+    
+    
     import { isAuthenticated } from "../stores/auth";
+    
+    import home1 from '../assets/Home_1.png'
+    import home2 from '../assets/Home_2.png'
+    import home3 from '../assets/Home_3.png'
+    import HeroSection from "../lib/sections/HeroSection.svelte";
+    import ImportantBtn from "../lib/ui/ImportantBtn.svelte";
+    import FooterSmall from "../lib/sections/FooterSmall.svelte";
 
     let navLinks = [];
 
@@ -21,145 +29,137 @@
     }
 </script>
   
+
+
+
 <svelte:head>
     <title>KDM-GEN</title>
 </svelte:head>
 
-<HeroSection navLinks={navLinks}>
-   <section id="hero">
-        <h1>Simplify Your KDM Generation</h1>
-        <p>Fast, Secure, and Reliable Key Delivery Messages for Your Digital Cinema Packages.</p>
-        <a href="#get-started" class="cta">Get Started</a>
-    </section>
-    <section id="features">
-        <div class="feature">
-            <h2>Ease of Use</h2>
-            <p>Generate KDMs in just a few clicks.</p>
+<HeroSection navLinks={navLinks} paddingTop="100px" paddingBottom="0px">
+   <section class="mainSections">
+        <div class="infoText-Left">
+            <h1>Simplify Your KDM Generation</h1>
+            <p>Fast, Secure, and Reliable Key Delivery Messages for Your Digital Cinema Packages.</p>
+            <ImportantBtn
+                on:click={() => navigate('/about')}
+                content="Get Started"
+                padding="10px 20px"
+                margin="20px 0px"
+            />
         </div>
-        <div class="feature">
-            <h2>Security</h2>
-            <p>Top-notch encryption to protect your content.</p>
-        </div>
-        <div class="feature">
-            <h2>Speed</h2>
-            <p>Instant KDM generation and delivery.</p>
-        </div>
-        <div class="feature">
-            <h2>Support</h2>
-            <p>24/7 customer support.</p>
+        <div class="infoImg">
+            <img src={home1} alt="Main Logo" width="500">
         </div>
     </section>
-    <section id="how-it-works">
-        <h2>How It Works</h2>
-        <div class="steps">
-            <div class="step">
-                <h3>1. Upload DCP</h3>
-                <p>Upload your DCP files securely.</p>
-            </div>
-            <div class="step">
-                <h3>2. Enter Details</h3>
-                <p>Provide the necessary details for KDM generation.</p>
-            </div>
-            <div class="step">
-                <h3>3. Generate KDM</h3>
-                <p>Click 'Generate' and get your KDM instantly.</p>
-            </div>
-            <div class="step">
-                <h3>4. Download & Distribute</h3>
-                <p>Download the KDM and distribute it as needed.</p>
-            </div>
+    <hr>
+    <section class="mainSections">
+        <div class="infoImg">
+            <img src={home2} alt="Main Logo" width="500">
+        </div>
+        <div class="infoText-Right">
+                <h2>Ease of Use</h2>
+                <p>Generate KDMs in just a few clicks.</p>
+                <h2>Security</h2>
+                <p>Top-notch encryption to protect your content.</p>
+                <h2>Speed</h2>
+                <p>Instant KDM generation and delivery.</p>
+                <h2>Support</h2>
+                <p>24/7 customer support.</p>
         </div>
     </section>
-    <section id="testimonials">
-        <h2>What Our Clients Say</h2>
-        <div class="testimonial">
-            <p>"This service has revolutionized our workflow!"</p>
-            <h3>- Client Name</h3>
+    <hr>
+    <section class="mainSections">
+        <div class="infoText-Left">
+            <h1>How It Works</h1>
+            <h3>Download Public Certificate</h3>
+            <p>Upload your DCP files securely.</p>
+            <h3>Enter Details</h3>
+            <p>Provide the necessary details for KDM generation.</p>
+            <h3>Generate KDM</h3>
+            <p>Click 'Generate' and get your KDM instantly.</p>
+            <h3>Download & Distribute</h3>
+            <p>Download the KDM and distribute it as needed.</p>
         </div>
-        <div class="testimonial">
-            <p>"Fast and reliable KDM generation every time."</p>
-            <h3>- Client Name</h3>
-        </div>
-    </section>
-    <section id="pricing">
-        <h2>Pricing Plans</h2>
-        <div class="plan">
-            <h3>Basic</h3>
-            <p>Features and price details.</p>
-            <a href="#choose-plan" class="cta">Choose Plan</a>
-        </div>
-        <div class="plan">
-            <h3>Pro</h3>
-            <p>Features and price details.</p>
-            <a href="#choose-plan" class="cta">Choose Plan</a>
-        </div>
-        <div class="plan">
-            <h3>Enterprise</h3>
-            <p>Features and price details.</p>
-            <a href="#choose-plan" class="cta">Choose Plan</a>
+        <div class="infoImg">
+            <img src={home3} alt="Main Logo" width="550">
         </div>
     </section>
-    <footer>
-        <div class="footer-links">
-            <a href="#privacy-policy">Privacy Policy</a>
-            <a href="#terms-of-service">Terms of Service</a>
-            <a href="#faq">FAQ</a>
-        </div>
-        <div class="contact-info">
-            <p>Email: info@company.com</p>
-            <p>Phone: +123 456 7890</p>
-            <p>Address: 1234 Street Name, City, Country</p>
-        </div>
-        <div class="social-media">
-            <a href="#facebook">Facebook</a>
-            <a href="#twitter">Twitter</a>
-            <a href="#linkedin">LinkedIn</a>
-        </div>
-    </footer>
+    <div class="footerContainer">
+        <FooterSmall navLinks={navLinks} paddingTop="0px" showBorder={false}/>
+    </div>
 </HeroSection>
 
+
+
 <style>
+    .mainSections {
+        /* border: 1px solid red; */
+        display: flex;
+        margin: auto;
+        margin-top: 0px;
+        margin-bottom: 50px;
+        padding: 0px 50px;
+        min-width: 1200px;
+        max-width: 1800px;
+        align-items: center;
+        box-sizing: border-box;
+    }
 
-#hero {
-    text-align: center;
-    background: url('cinema.jpg') no-repeat center center/cover;
-    color: #fff;
-    padding: 100px 20px;
-}
+    hr {
+        border-color: rgb(86, 127, 139);
+        width: 100%;
+        margin-bottom: 50px;
+    }
 
-#hero .cta {
-    background-color: #007BFF;
-    padding: 15px 30px;
-    border-radius: 5px;
-    color: #fff;
-    text-decoration: none;
-}
+    .infoText-Left {
+        margin: auto;
+        margin-right: 30px;
+    }
 
-#features, #how-it-works, #testimonials, #pricing {
-    padding: 50px 20px;
-    text-align: center;
-}
+    .infoText-Right {
+        margin: auto;
+        margin-left: 150px;
+        /* text-align: right; */
+    }
+    .infoImg {
+        border: 8px solid rgb(86, 127, 139);
+        border-radius: 15px;
+        height: 100%;
+        margin: auto;
+    }
 
-#features .feature, #how-it-works .step, #pricing .plan {
-    margin: 20px 0;
-}
+    img {
+        border-radius: 5px;
+        display: block;
+    }
 
-footer {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-}
+    p {
+        font-size: 20pt;
+        max-width: 700px;
+        margin-top: 0px;
+    }
+    
+    h1 {
+        margin-top: 0px;
+        font-size: 3em;
+        margin-bottom: 20px;
+    }
 
-footer .footer-links, .contact-info, .social-media {
-    margin: 10px 0;
-}
+    h3 {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
 
-footer .footer-links a, .social-media a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 10px;
-}
+    h2, h3 {
+        margin-bottom: 0px;
+    }
+
+    .footerContainer {
+        background-color: #0f2e36;
+        padding-top: 30px;
+        padding-bottom: 10px;
+    }
 
 </style>
   

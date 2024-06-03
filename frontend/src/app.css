@@ -48,8 +48,7 @@ body {
   radial-gradient(ellipse at 20% 50%, #0f2e36 0%, #0a1c21 40%);
   font-family: "Montserrat";
   margin: 0;
-  height: 100%;
-
+  min-height: 100%;
 }
 
 #app {

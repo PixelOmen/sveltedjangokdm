@@ -17,7 +17,7 @@
     import SearchList from "../../lib/search/SearchList.svelte";
     import DateSelect from '../../lib/dates/DateSelect.svelte';
     import ImportantBtn from '../../lib/ui/ImportantBtn.svelte';
-    import FooterLinks from '../../lib/sections/FooterLinks.svelte';
+    import FooterSmall from '../../lib/sections/FooterSmall.svelte';
     
     import Selected from "./Selected.svelte";
 
@@ -190,7 +190,7 @@
             </div>
         </div>
     </section>
-    <FooterLinks navLinks={navLinks} paddingTop="50px" showBorder={true}/>
+    <FooterSmall navLinks={navLinks} paddingTop="50px" showBorder={true}/>
 </main>
 
 <style>

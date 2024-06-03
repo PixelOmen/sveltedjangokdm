@@ -5,7 +5,7 @@
 </script>
 
 <script lang='ts'>
-    import logo from '/KDM_logo.png';
+    import logo from '/film_can.svg';
     import NavAnchor from './NavAnchor.svelte';
     
     export let navLinks: NavLinks;
@@ -33,7 +33,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        max-width: 80%;
+        width: 90%;
         margin-left: auto;
         margin-right: auto;
         padding: 10px 0px;
@@ -42,6 +42,10 @@
         text-decoration: none;
         display: flex;
         align-items: center;
+    }
+
+    a > img {
+        transform: translateY(-2px);
     }
     a > span {
         outline: none;

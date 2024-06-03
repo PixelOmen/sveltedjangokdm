@@ -4,8 +4,8 @@
     import { save_token } from "../stores/auth";
     import HeroSection from "../lib/sections/HeroSection.svelte";
     import ImportantBtn from "../lib/ui/ImportantBtn.svelte";
-    import FooterLinks from "../lib/sections/FooterLinks.svelte";
     import NavAnchor from "../lib/nav/NavAnchor.svelte";
+    import FooterSmall from "../lib/sections/FooterSmall.svelte";
 
     const SERVER_IP = import.meta.env.VITE_API_SERVER_IP;
 
@@ -69,7 +69,7 @@
                 <NavAnchor data={signUpLink}/>
             </ul>
         </form>
-        <FooterLinks {navLinks}
+        <FooterSmall {navLinks}
             showBorder={false}
             width="500px"
             paddingTop="50px"
