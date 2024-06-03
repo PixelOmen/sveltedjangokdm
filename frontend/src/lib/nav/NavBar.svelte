@@ -19,7 +19,7 @@
         </span>
     </a>
     <nav>
-        <ul>
+        <ul class='navUL'>
             {#each navLinks as link}
                 <NavAnchor data={link}/>
             {/each}
@@ -50,11 +50,11 @@
         font-size: 25pt;
         font-weight: 600;
     }
-    ul {
+    .navUL {
         font-family: 'montserrat', sans-serif;
         padding-bottom: 4px;
         display: flex;
-        gap: 20px;
+        gap: 30px;
     }
 
     @media (max-width: 1200px) {

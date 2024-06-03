@@ -5,6 +5,7 @@
     import HeroSection from "../lib/sections/HeroSection.svelte";
     import ImportantBtn from "../lib/ui/ImportantBtn.svelte";
     import FooterLinks from "../lib/sections/FooterLinks.svelte";
+    import NavAnchor from "../lib/nav/NavAnchor.svelte";
 
     const SERVER_IP = import.meta.env.VITE_API_SERVER_IP;
 
@@ -13,19 +14,29 @@
         {displayName: "About", url: `/about`},
     ]
 
+    const signUpLink = {
+        displayName: "Create an account", url: "/signup"
+    };
+
+    let formElem: HTMLFormElement;
     let flashElem: HTMLDivElement;
+
+    $: {
+        if (formElem) {
+            formElem.addEventListener('submit', (e) => {
+                e.preventDefault();
+                login();
+            })
+        }
+    }
 
     async function login() {
         flashElem.classList.add('hidden');
+        let formdata = new FormData(formElem);
+
         const res = await fetch(`${SERVER_IP}/api/login`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                "username": "eacosta",
-                "password": "mypassword2"
-            })
+            body: formdata
         })
         if (res.ok) {
             const data = await res.json();
@@ -41,30 +52,28 @@
     <title>Login</title>
 </svelte:head>
 
-<!-- <h3>
-    This is the login page
-</h3>
-<div>
-    <button on:click={login}>Login</button>
-    <button on:click={() => navigate('/')}>Home</button>
-</div> -->
-
 <main>
     <HeroSection {navLinks}>
-        <form class="container">
+        <form bind:this={formElem} class="container">
             <label for="username">Username</label>
             <input type="text" id="username" name="username" required>
             <label for="password">Password</label>
             <input type="password" id="password" name="password" required>
             <ImportantBtn
-                on:click={login}
                 content="Login"
                 padding="10px 20px"
                 margin="20px 0px"
             />
             <div bind:this={flashElem} class="flash hidden">Invalid Username/Password</div>
+            <ul class="footerUL">
+                <NavAnchor data={signUpLink}/>
+            </ul>
         </form>
-        <FooterLinks {navLinks} showBorder={false}/>
+        <FooterLinks {navLinks}
+            showBorder={false}
+            width="500px"
+            paddingTop="50px"
+        />
     </HeroSection>
 </main>
 
@@ -74,12 +83,13 @@
         border: 1px solid rgb(48, 48, 48);
         background-color: #272727;
         border-radius: 10px;
-        padding: 60px 50px;
+        padding: 40px 50px;
+        padding-bottom: 20px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         width: 400px;
-        margin-top: 30px;
+        margin-top: 100px;
         margin-left: auto;
         margin-right: auto;
     }
@@ -112,5 +122,11 @@
 
     .hidden {
         display: none;
+    }
+
+    .footerUL {
+        margin: auto;
+        margin-top: 20px;
+        margin-bottom: 0px;
     }
 </style>

@@ -5,35 +5,27 @@
     export let navLinks: NavLinks;
     export let paddingTop = "50px";
     export let showBorder = false;
-
-    const ulDirection = navLinks.length > 1 ? "ulColumn" : "ulRow";
-    const sectionWidth = navLinks.length > 1 ? "" : "fullSection";
+    export let width = "";
+    
+    const containerWidth = width ? width : "80%";
 </script>
 
-<footer class="footerSection">
-    <div class="footerContainer" style="padding-top: {paddingTop}">
+<footer class="footerContainer" style="padding-top: {paddingTop}; width: {containerWidth}">
         {#if showBorder}
             <hr />
         {/if}
         <nav>
             {#each navLinks as footerSection}
-                <section class={sectionWidth}>
-                    <ul class={ulDirection}>
+                <section>
+                    <ul>
                         <NavAnchor data={footerSection}/>
                     </ul>
                 </section>
             {/each}
         </nav>
-    </div>
 </footer>
 
 <style>
-    .footerSection {
-        flex: 1;
-        display: flex;
-        min-width: 900px;
-    }
-
     hr {
         margin-top: 0;
     }
@@ -55,16 +47,5 @@
     }
     ul {
         font-size: 10pt;
-    }
-
-    .fullSection {
-        width: 100%;
-    }
-
-    .ulRow {
-        width: 100%;
-        display: flex;
-        justify-content: space-around;
-
     }
 </style>
