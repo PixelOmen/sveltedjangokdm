@@ -26,9 +26,14 @@
     }
 </script>
 
+<svelte:head>
+    <title>Login</title>
+</svelte:head>
+
 <h3>
     This is the login page
     <div>
         <button on:click={login}>Login</button>
+        <button on:click={() => navigate('/')}>Home</button>
     </div>
 </h3>

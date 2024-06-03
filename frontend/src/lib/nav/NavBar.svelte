@@ -5,7 +5,7 @@
 </script>
 
 <script lang='ts'>
-    import logo from '../../assets/KDM_logo.png';
+    import logo from '/KDM_logo.png';
     import NavAnchor from './NavAnchor.svelte';
     
     export let navLinks: NavLinks;

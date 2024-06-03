@@ -17,12 +17,8 @@
                 'Authorization': `Token ${get_token()}`
             },
         })
-        if (res.ok) {
-            remove_token();
-            navigate('/login');
-        } else {
-            console.error('Logout failed');
-        }
+        remove_token();
+        navigate('/login');
     }
 
     onMount(() => {
@@ -34,3 +30,7 @@
     });
 
 </script>
+
+<svelte:head>
+    <title>Logout</title>
+</svelte:head>

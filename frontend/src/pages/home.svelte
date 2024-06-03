@@ -1,11 +1,24 @@
 <script lang="ts">
     import HeroSection from "../lib/sections/HeroSection.svelte";
+    import { get } from "svelte/store";
 
-    const navLinks = [
-        {displayName: "Generate", url: `/kdm`},
-        {displayName: "Contact", url: `/contact`},
-        {displayName: "About", url: `/about`},
-    ]
+    import { isAuthenticated } from "../stores/auth";
+
+    let navLinks = [];
+
+    if (get(isAuthenticated)) {
+        navLinks = [
+            {displayName: "Generate", url: `/kdm`},
+            {displayName: "About", url: `/about`},
+            {displayName: "Logout", url: `/logout`},
+        ]
+    } else {
+        navLinks = [
+            {displayName: "Login", url: `/login`},
+            {displayName: "About", url: `/about`},
+        ]
+    
+    }
 </script>
   
 <svelte:head>

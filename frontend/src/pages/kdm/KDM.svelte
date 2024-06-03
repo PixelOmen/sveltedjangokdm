@@ -6,7 +6,7 @@
 </script>
 
 <script lang="ts">
-    import { navigate } from 'svelte-routing';
+    import { get_token } from '../../stores/auth';
 
     import FolderIcon from "../../assets/folderIcon.svg"
     import CertificateIcon from "../../assets/certificate.svg";
@@ -24,6 +24,7 @@
     const SERVER_IP = import.meta.env.VITE_API_SERVER_IP;
 
     const navLinks = [
+        {displayName: "About", url: `/about`},
         {displayName: "Logout", url: `/logout`},
     ]
 
@@ -66,7 +67,9 @@
             let res = await fetch(`${SERVER_IP}/api/test_post`, {
                 method: 'POST',
                 body: formData,
-                credentials: 'include'
+                headers: {
+                    'Authorization': `Token ${get_token()}`
+                }
             });
             if (res.ok) {
                 let data = await res.json();
@@ -136,6 +139,9 @@
     }
 </script>
 
+<svelte:head>
+    <title>Generate</title>
+</svelte:head>
 
 <main id="main">
     <div class="hidden">
