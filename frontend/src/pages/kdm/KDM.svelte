@@ -17,7 +17,7 @@
     import SearchList from "../../lib/search/SearchList.svelte";
     import DateSelect from '../../lib/dates/DateSelect.svelte';
     import ImportantBtn from '../../lib/ui/ImportantBtn.svelte';
-    import FooterSmall from '../../lib/sections/FooterSmall.svelte';
+    import FooterLarge from '../../lib/sections/FooterLarge.svelte';
     
     import Selected from "./Selected.svelte";
 
@@ -190,14 +190,18 @@
             </div>
         </div>
     </section>
-    <FooterSmall navLinks={navLinks} paddingTop="50px" showBorder={true}/>
+    <div class="footerContainer">
+        <FooterLarge navLinks={navLinks} paddingTop="30px" showBorder={false}/>
+    </div>
 </main>
 
 <style>
     main {
         font-family: "Montserrat";
-        position: relative;
         min-width: 900px;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
     }
 
     .certSection {
@@ -241,6 +245,12 @@
         width: 800px;
         padding: 5px;
         gap: 10px
+    }
+
+    .footerContainer {
+        margin-top: auto;
+        background: linear-gradient(310deg, #122c30 0%, #0f2e36 99%);
+        padding-bottom: 10px;
     }
 
     .hidden {

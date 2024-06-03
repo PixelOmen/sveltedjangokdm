@@ -10,7 +10,7 @@
     import home3 from '../assets/Home_3.png'
     import HeroSection from "../lib/sections/HeroSection.svelte";
     import ImportantBtn from "../lib/ui/ImportantBtn.svelte";
-    import FooterSmall from "../lib/sections/FooterSmall.svelte";
+    import FooterLarge from "../lib/sections/FooterLarge.svelte";
 
     let navLinks = [];
 
@@ -86,7 +86,7 @@
         </div>
     </section>
     <div class="footerContainer">
-        <FooterSmall navLinks={navLinks} paddingTop="0px" showBorder={false}/>
+        <FooterLarge navLinks={navLinks} paddingTop="0px" showBorder={false}/>
     </div>
 </HeroSection>
 
@@ -94,22 +94,19 @@
 
 <style>
     .mainSections {
-        /* border: 1px solid red; */
         display: flex;
-        margin: auto;
         margin-top: 0px;
         margin-bottom: 50px;
         padding: 0px 50px;
-        min-width: 1200px;
         max-width: 1800px;
         align-items: center;
-        box-sizing: border-box;
     }
 
     hr {
         border-color: rgb(86, 127, 139);
         width: 100%;
         margin-bottom: 50px;
+        box-sizing: border-box;
     }
 
     .infoText-Left {
