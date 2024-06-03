@@ -1,5 +1,5 @@
 <script lang='ts'>
-    import NavAnchor from "../nav/navbar_multi/NavAnchor_Section.svelte";
+    import NavAnchor from "../nav/NavAnchor.svelte";
     import type { NavLinks } from "../nav/NavBar.svelte"
 
     export let navLinks: NavLinks;
@@ -29,11 +29,6 @@
 
 <style>
     .footerSection {
-        background: radial-gradient(
-                ellipse at 20% -10%,
-                #0e282f 0%,
-                transparent 40%
-        ), linear-gradient(#12232e 0%, #0a1c21 90%);
         flex: 1;
         display: flex;
         min-width: 900px;

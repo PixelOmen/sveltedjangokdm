@@ -23,8 +23,6 @@
   
 <style>
   main {
-    background: radial-gradient(ellipse at 80% -50%, #0f2e36 0%, #0e1d30 30%, transparent 100%),
-                radial-gradient(ellipse at 10% 50%, #0f2e36 0%, #0a1c21 40%);
     padding-top: 30px;
   }
   section {

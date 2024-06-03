@@ -1,0 +1,17 @@
+volumes:
+  postgres_volume:
+    external: true
+
+services:
+  postgres_db:
+    container_name: "${PROJECT_NAME}_postgres_db"
+    image: postgres:15.2-alpine
+    restart: always
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data:delegated
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}

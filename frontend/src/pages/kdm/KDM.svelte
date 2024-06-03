@@ -106,15 +106,10 @@
             endDateComp.setError();
         }
 
-        let outputDir = outputDirComp.getValue();
-        if (!outputDir) {
-            outputDirComp.setError();
-        }
-
         if (!(
             selectedCertValue &&
             selectedDKDMValue &&
-            start && end && outputDir
+            start && end
         )) {
             return;
         }
@@ -127,7 +122,6 @@
             "startDate": start,
             "endDate": end,
             "timezone": tz,
-            "outputDir": outputDir
         }
 
         showLoading = true;
@@ -196,7 +190,7 @@
             </div>
         </div>
     </section>
-    <FooterLinks navLinks={navLinks} paddingTop="50px" showBorder={false}/>
+    <FooterLinks navLinks={navLinks} paddingTop="50px" showBorder={true}/>
 </main>
 
 <style>

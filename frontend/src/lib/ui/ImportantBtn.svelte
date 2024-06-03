@@ -3,6 +3,7 @@
     export let fontSize = "13pt";
     export let fontWeight = "700";
     export let padding = "3px 15px";
+    export let margin= "0px";
     export let hasShadow = false;
 
     let shadowSpec = hasShadow? "filter: drop-shadow(1px 5px 5px rgba(0, 0, 0, 0.3))" : "";
@@ -13,6 +14,7 @@
     style="font-size: {fontSize};
     font-weight: {fontWeight};
     padding: {padding};
+    margin: {margin};
     {shadowSpec};
     "
 >
