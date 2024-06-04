@@ -6,17 +6,16 @@
 </script>
 
 <script lang='ts'>
-    export let data: AnchorData
+    export let data: AnchorData;
+    export let newTab = false;
 
-    $: atarget = data.displayName.toLowerCase() == "status" ? "_blank" : "_self";
+    $: atarget = newTab ? "_blank" : "_self";
 </script>
 
 
-<li>
-    <a href={data.url} target={atarget} class="link">
-        {data.displayName}
-    </a>
-</li>
+<a href={data.url} target={atarget} class="link">
+    {data.displayName}
+</a>
 
 
 <style>

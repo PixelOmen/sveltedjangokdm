@@ -41,7 +41,7 @@
         margin-left: auto;
         margin-right: auto;
         justify-content: space-between;
-        align-items: flex-end;
+        align-items: center;
     }
     
     .linksContainer {

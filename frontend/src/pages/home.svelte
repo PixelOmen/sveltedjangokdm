@@ -69,7 +69,7 @@
         </div>
     </section>
     <hr>
-    <section class="mainSections">
+    <section class="mainSections lastSection">
         <div class="infoText-Left">
             <h1>How It Works</h1>
             <h3>Download Public Certificate</h3>
@@ -105,6 +105,10 @@
         padding: 0px 50px;
         max-width: 1800px;
         align-items: center;
+    }
+
+    .lastSection {
+        margin-bottom: 100px;
     }
 
     hr {

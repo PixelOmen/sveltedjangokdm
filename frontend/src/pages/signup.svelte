@@ -67,7 +67,7 @@
             <label for="password">Password</label>
             <input type="password" id="password" name="password" required>
             <ImportantBtn
-                content="Login"
+                content="Sign Up"
                 padding="10px 20px"
                 margin="20px 0px"
             />
@@ -137,6 +137,7 @@
 
     .loginLink {
         margin: auto;
+        margin-top: 5px;
     }
 
     .hidden {
