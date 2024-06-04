@@ -22,7 +22,7 @@
         ]
     } else {
         navLinks = [
-            {displayName: "Login", url: `/login`},
+            {displayName: "Sign Up / Log In", url: `/login`},
             {displayName: "About", url: `/about`},
         ]
     
@@ -36,13 +36,13 @@
     <title>KDM-GEN</title>
 </svelte:head>
 
-<HeroSection navLinks={navLinks} paddingTop="100px" paddingBottom="0px">
+<HeroSection navLinks={navLinks} paddingTop="150px" paddingBottom="0px">
    <section class="mainSections">
         <div class="infoText-Left">
             <h1>Simplify Your KDM Generation</h1>
             <p>Fast, Secure, and Reliable Key Delivery Messages for Your Digital Cinema Packages.</p>
             <ImportantBtn
-                on:click={() => navigate('/about')}
+                on:click={() => navigate('/signup')}
                 content="Get Started"
                 padding="10px 20px"
                 margin="20px 0px"
@@ -73,9 +73,12 @@
         <div class="infoText-Left">
             <h1>How It Works</h1>
             <h3>Download Public Certificate</h3>
-            <p>Upload your DCP files securely.</p>
-            <h3>Enter Details</h3>
-            <p>Provide the necessary details for KDM generation.</p>
+            <p>Create a DKDM for your DCP CPL</p>
+            <h3>Upload DKDM and Device Certificates</h3>
+            <p>
+                CPL DKDMs and device certificates
+                are safely stored for future use.
+            </p>
             <h3>Generate KDM</h3>
             <p>Click 'Generate' and get your KDM instantly.</p>
             <h3>Download & Distribute</h3>
@@ -95,6 +98,8 @@
 <style>
     .mainSections {
         display: flex;
+        margin-left: auto;
+        margin-right: auto;
         margin-top: 0px;
         margin-bottom: 50px;
         padding: 0px 50px;
@@ -117,7 +122,6 @@
     .infoText-Right {
         margin: auto;
         margin-left: 150px;
-        /* text-align: right; */
     }
     .infoImg {
         border: 8px solid rgb(86, 127, 139);
@@ -155,7 +159,7 @@
     .footerContainer {
         background-color: #0f2e36;
         padding-top: 30px;
-        padding-bottom: 10px;
+        padding-bottom: 5px;
     }
 
 </style>

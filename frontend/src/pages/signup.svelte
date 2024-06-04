@@ -14,8 +14,8 @@
         {displayName: "About", url: `/about`},
     ]
 
-    const signUpLink = {
-        displayName: "Create an account", url: "/signup"
+    const loginLink = {
+        displayName: "Already have an account?", url: "/login"
     };
 
     let formElem: HTMLFormElement;
@@ -49,17 +49,19 @@
 </script>
 
 <svelte:head>
-    <title>Login</title>
+    <title>Signup</title>
 </svelte:head>
 
 <main>
     <HeroSection {navLinks}>
         <div class="header">
             <h1>
-                Login
+                Create an account
             </h1>
         </div>
         <form bind:this={formElem} class="container">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>            
             <label for="username">Username</label>
             <input type="text" id="username" name="username" required>
             <label for="password">Password</label>
@@ -70,8 +72,8 @@
                 margin="20px 0px"
             />
             <div bind:this={flashElem} class="flash hidden">Invalid Username/Password</div>
-            <ul class="footerUL">
-                <NavAnchor data={signUpLink}/>
+            <ul class="loginLink">
+                <NavAnchor data={loginLink}/>
             </ul>
         </form>
         <FooterSmall {navLinks}
@@ -87,12 +89,12 @@
     .header {
         margin-top: 50px;
         text-align: center;
-        margin-top: 100px;
     }
 
     h1 {
         margin-bottom: 20px;
     }
+
     .container {
         border: 1px solid rgb(48, 48, 48);
         background-color: #272727;
@@ -133,13 +135,11 @@
         border: 2px solid #0977e5;
     }
 
-    .hidden {
-        display: none;
+    .loginLink {
+        margin: auto;
     }
 
-    .footerUL {
-        margin: auto;
-        margin-top: 20px;
-        margin-bottom: 0px;
+    .hidden {
+        display: none;
     }
 </style>

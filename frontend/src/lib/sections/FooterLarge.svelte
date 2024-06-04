@@ -11,9 +11,10 @@
 </script>
 
 <footer class="footerContainer" style="padding-top: {paddingTop}; width: {containerWidth}">
-        {#if showBorder}
-            <hr />
-        {/if}
+    {#if showBorder}
+    <hr />
+    {/if}
+    <div class="linksContainer">
         <nav>
             {#each navLinks as footerSection}
                 <section>
@@ -23,24 +24,41 @@
                 </section>
             {/each}
         </nav>
+    </div>
+    <div class="legalContainer">
+        This site utilizes DCP-o-matic © 2011-2024 Carl Hetherington and is distributed
+        under the GNU General Public License (GPL) version 2 or later. For more information,
+        visit <a href="https://dcpomatic.com">https://dcpomatic.com</a>.
+    </div>
 </footer>
 
-<style>
-    hr {
-        margin-top: 0;
-    }
-
+<style>    
     .footerContainer {
-        align-self: flex-start;
-        width: 80%;
+        display: flex;
+        min-width: 1150px;
+        max-width: 1450px;
         padding-bottom: 20px;
         margin-left: auto;
         margin-right: auto;
     }
+    
+    .linksContainer {
+        flex: 1;
+        width: max-content;
+    }
+
+    .legalContainer {
+        flex: 3;
+    }
+
+    hr {
+        margin-top: 0;
+    }
 
     nav {
         display: flex;
-        justify-content: space-around;
+        flex-direction: column;
+        gap: 10px;
         width: 100%;
         margin-left: auto;
         margin-right: auto;
