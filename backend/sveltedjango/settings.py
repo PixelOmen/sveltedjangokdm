@@ -157,4 +157,4 @@ CORS_ALLOW_CREDENTIALS = True
 
 # Media files (user uploaded files)
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = str(BASE_DIR / 'media')

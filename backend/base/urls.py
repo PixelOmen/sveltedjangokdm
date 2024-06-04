@@ -6,7 +6,8 @@ from django.views.static import serve
 from . import views
 
 urlpatterns = [
-    path('api/test_post', views.TestPostView.as_view(), name='test_post'),    
+    path('api/test_post', views.TestPostView.as_view(), name='test_post'),
+    path('api/public_leaf', views.ServePublicLeafView.as_view(), name='public_leaf'),    
     path('api/login', views.LoginView.as_view(), name='login'),
     path('api/logout', views.Logoutview.as_view(), name='logout'),
     path('api/signup', views.SignUpView.as_view(), name='signup'),

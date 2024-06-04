@@ -43,3 +43,10 @@ Content-Type: application/json
 Authorization: Token 5df5ced5b60c5ec90b8dff408d4c7f0df23d1d0e
 
 {}
+
+
+###
+GET http://127.0.0.1:8000/api/public_leaf
+Content-Type: application/json
+
+{}

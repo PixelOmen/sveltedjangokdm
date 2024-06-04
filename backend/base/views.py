@@ -1,3 +1,7 @@
+import os
+
+from django.conf import settings
+from django.http import FileResponse, Http404
 from django.contrib.auth.models import User
 from django.views.generic import TemplateView
 from django.shortcuts import get_object_or_404
@@ -9,7 +13,6 @@ from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
 
-
 from .serializers import UserSerializer, KDMCertSerializer
 
 
@@ -17,6 +20,13 @@ class SvelteAppView(TemplateView):
     template_name = 'index.html'
 
 
+class ServePublicLeafView(APIView):
+    def get(self, request):
+        file_path = os.path.join(settings.MEDIA_ROOT + '/public/public_leaf.pem')
+        if os.path.exists(file_path):
+            return FileResponse(open(file_path, 'rb'), as_attachment=True, filename='public_leaf.pem')
+        else:
+            return Http404('File not found!') 
 
 
 class TestPostView(APIView):

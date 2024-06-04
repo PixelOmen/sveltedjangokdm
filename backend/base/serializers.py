@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 
-from .models import KDMCert
+from .models import Cert
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -10,5 +10,5 @@ class UserSerializer(serializers.ModelSerializer):
 
 class KDMCertSerializer(serializers.ModelSerializer):
     class Meta:
-        model = KDMCert
+        model = Cert
         fields = ('__all__')

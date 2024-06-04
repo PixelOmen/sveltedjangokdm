@@ -2,7 +2,6 @@
     import { get } from "svelte/store";
     import { navigate } from "svelte-routing";
     
-    
     import { isAuthenticated } from "../stores/auth";
     
     import home1 from '../assets/Home_1.png'
@@ -12,6 +11,7 @@
     import ImportantBtn from "../lib/ui/ImportantBtn.svelte";
     import FooterLarge from "../lib/sections/FooterLarge.svelte";
 
+    const SERVER_IP = import.meta.env.VITE_API_SERVER_IP;
     let navLinks = [];
 
     if (get(isAuthenticated)) {
@@ -26,6 +26,10 @@
             {displayName: "About", url: `/about`},
         ]
     
+    }
+
+    function downloadLeaf() {
+        window.open(`${SERVER_IP}/api/public_leaf`, '_blank');
     }
 </script>
   
@@ -47,6 +51,14 @@
                 padding="10px 20px"
                 margin="20px 0px"
             />
+            <div style="display: inline; margin-left: 10px;">
+                <ImportantBtn
+                on:click={downloadLeaf}
+                content="Download Certificate"
+                padding="10px 20px"
+                margin="20px 0px"
+                />
+            </div>
         </div>
         <div class="infoImg">
             <img src={home1} alt="Main Logo" width="500">

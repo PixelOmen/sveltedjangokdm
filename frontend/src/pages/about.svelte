@@ -6,6 +6,7 @@
 
     import linkedinIcon from "../assets/linkedin_icon.svg";
     import githubIcon from "../assets/github_icon.png";
+    import emailIcon from "../assets/email_icon.svg";
     
     import HeroSection from "../lib/sections/HeroSection.svelte";
     import NavAnchor from "../lib/nav/NavAnchor.svelte";
@@ -29,6 +30,8 @@
 
     let github_link = {displayName: "github.com/PixelOmen", url: "https://github.com/PixelOmen"};
     let linkin_link = {displayName: "linkedin.com/in/emmanuelacostapost", url: "https://www.linkedin.com/in/emmanuelacostapost"};
+    let email_link = {displayName: "3D.Acosta@gmail.com", url: "mailto:3D.Acosta@gmail.com"};
+    let sourcecode_link = {displayName: "github.com/PixelOmen/sveltedjangokdm", url: "https://github.com/PixelOmen/sveltedjangokdm"};
 </script>
   
 
@@ -39,14 +42,14 @@
 </svelte:head>
 
 <main>
-    <HeroSection navLinks={navLinks} paddingTop="120px" paddingBottom="100px">
+    <HeroSection navLinks={navLinks} paddingTop="120px" paddingBottom="80px">
        <section class="mainSections">
             <div class="infoText-Center">
                 <h1>About KDM-GEN</h1>
                 <p>
-                    Welcome to my fictional project, a web application built with
+                    Welcome to KDM-GEN, a fictional web application built with
                     the Django framework. This site is not a real product, but rather a showcase
-                    of my skills and the capabilities of the technologies I've used.
+                    of my skills and knowledge as a full-stack developer.
                 </p>
                 <h2>Purpose and Features</h2>
                 <p>
@@ -57,7 +60,7 @@
                     user's selection of certificates and DKDMs, which they themselves can
                     upload to the application.
                 </p>
-                <h2>Technologies Used</h2>
+                <h2>Technologies Used:</h2>
                 <ul>
                     <li>
                         <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
@@ -92,23 +95,29 @@
                         Fargate - Serverless compute engine for AWS containers, simplifying infrastructure
                     </li>
                 </ul>
+                <h2>Source Code:</h2>
+                <img class="linkedin-img" src={githubIcon} alt="LinkedIn-Icon" width="30px">
+                <span style="font-size: 18pt;">
+                    <NavAnchor data={sourcecode_link} newTab={false}/>
+                </span>
+
                 <br><br><br>
-                <h1>Contact</h1>
-                <p>
-                    Find me on the following platforms:
-                </p>
+
+                <h1>Connect With Me</h1>
                 <ul>
                     <li>
-                        <img class="linkedin-img" src={githubIcon} alt="LinkedIn-Icon" width="30px">
+                        <img class="linkedin-img" src={emailIcon} alt="email-Icon" width="30px">
+                        <NavAnchor data={email_link} newTab={false}/>
+                    </li>
+                    <li>
+                        <img class="linkedin-img" src={githubIcon} alt="github-Icon" width="30px">
                         <NavAnchor data={github_link} newTab={true}/>
                     </li>
                     <li>
                         <img class="linkedin-img" src={linkedinIcon} alt="LinkedIn-Icon" width="30px">
-                        <!-- <a href="https://www.linkedin.com/in/emmanuelacostapost/" target="_blank">
-                            linkedin.com/in/emmanuelacostapost
-                        </a> -->
                         <NavAnchor data={linkin_link} newTab={true}/>
                     </li>
+                </ul>
             </div>
         </section>
     </HeroSection>
@@ -154,6 +163,10 @@
         font-size: 4em;
         margin-top: 0px;
         margin-bottom: 0px;
+    }
+
+    h2 {
+        margin-bottom: 5px;
     }
 
     .checkmark {
