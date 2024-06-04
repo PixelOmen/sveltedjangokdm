@@ -24,6 +24,7 @@
     const SERVER_IP = import.meta.env.VITE_API_SERVER_IP;
 
     const navLinks = [
+        {displayName: "Home", url: `/`},
         {displayName: "About", url: `/about`},
         {displayName: "Logout", url: `/logout`},
     ]

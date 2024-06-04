@@ -27,19 +27,21 @@
     </div>
     <div class="legalContainer">
         This site utilizes DCP-o-matic © 2011-2024 Carl Hetherington and is distributed
-        under the GNU General Public License (GPL) version 2 or later. For more information,
-        visit <a href="https://dcpomatic.com">https://dcpomatic.com</a>.
+        under the GNU General Public License (GPL) version 2 or later. 
+        <br> For more information,
+        visit <a href="https://dcpomatic.com">dcpomatic.com</a>.
     </div>
 </footer>
 
 <style>    
     .footerContainer {
         display: flex;
-        min-width: 1150px;
         max-width: 1450px;
         padding-bottom: 20px;
         margin-left: auto;
         margin-right: auto;
+        justify-content: space-between;
+        align-items: flex-end;
     }
     
     .linksContainer {
@@ -48,7 +50,7 @@
     }
 
     .legalContainer {
-        flex: 3;
+        flex: 4;
     }
 
     hr {

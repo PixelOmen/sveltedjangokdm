@@ -21,7 +21,7 @@ Content-Type: application/json
 
 POST http://127.0.0.1:8000/api/logout
 Content-Type: application/json
-Authorization: Token 1229950b037e0b4180f6658ec6451c9be91b81d4
+Authorization: Token 5df5ced5b60c5ec90b8dff408d4c7f0df23d1d0e
 
 {}
 
@@ -40,6 +40,6 @@ Content-Type: application/json
 
 GET http://127.0.0.1:8000/api/test_token
 Content-Type: application/json
-Authorization: Token 1229950b037e0b4180f6658ec6451c9be91b81d4
+Authorization: Token 5df5ced5b60c5ec90b8dff408d4c7f0df23d1d0e
 
 {}
