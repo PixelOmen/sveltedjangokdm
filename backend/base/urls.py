@@ -15,6 +15,9 @@ urlpatterns = [
     path('api/add_user_cert', views.AddUserCertView.as_view(), name='add_user_cert'),
     path('api/add_user_dkdm', views.AddUserDKDMView.as_view(), name='add_user_dkdm'),
 
+    path('api/get_user_certs', views.GetUserCertsView.as_view(), name='get_user_certs'),
+    path('api/get_user_dkdms', views.GetUserDKDMsView.as_view(), name='get_user_dkdms'),
+
     path('', views.SvelteAppView.as_view(), name='svelte_app'),
     path('kdm', views.SvelteAppView.as_view(), name='svelte_app'),
     path('login', views.SvelteAppView.as_view(), name='svelte_app'),

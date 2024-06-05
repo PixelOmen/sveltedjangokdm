@@ -68,6 +68,24 @@ class AddUserDKDMView(APIView):
                 {'detail': serializers.format_errors(serializer)},
                  status=status.HTTP_400_BAD_REQUEST
             )
+        
+class GetUserCertsView(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [SessionAuthentication, TokenAuthentication]
+
+    def get(self, request):
+        certs = models.Cert.objects.filter(user=request.user.id)
+        serializer = serializers.CertSerializer(certs, many=True)
+        return Response(serializer.data)
+    
+class GetUserDKDMsView(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [SessionAuthentication, TokenAuthentication]
+
+    def get(self, request):
+        dkdms = models.DKDM.objects.filter(user=request.user.id)
+        serializer = serializers.DKDMSerializer(dkdms, many=True)
+        return Response(serializer.data)
 
 class LoginView(APIView):
     def post(self, request):

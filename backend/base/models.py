@@ -11,7 +11,7 @@ class Cert(models.Model):
         return self.file.name
     
     class Meta:
-        ordering = ['-file']
+        ordering = ['-display_name']
 
     def save(self, *args, **kwargs):
         if not self.display_name:
@@ -28,7 +28,7 @@ class DKDM(models.Model):
         return self.file.name
     
     class Meta:
-        ordering = ['-file']
+        ordering = ['-display_name']
 
     def save(self, *args, **kwargs):
         if not self.display_name:
