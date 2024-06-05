@@ -43,83 +43,85 @@
 
 <main>
     <HeroSection navLinks={navLinks} paddingTop="120px" paddingBottom="80px">
-       <section class="mainSections">
-            <div class="infoText-Center">
-                <h1>About KDM-GEN</h1>
-                <p>
-                    Welcome to KDM-GEN, a fictional web application built with
-                    the Django framework. This site is not a real product, but rather a showcase
-                    of my skills and knowledge as a full-stack developer.
-                </p>
-                <h2>Purpose and Features</h2>
-                <p>
-                    This project aims to demonstrate seamless user data management
-                    while providing a simple and intuitive user experience. The application
-                    allows users to generate and download Key Delivery Messages (KDMs) for
-                    digital cinema packages (DCPs). The KDMs are generated based on the
-                    user's selection of certificates and DKDMs, which they themselves can
-                    upload to the application.
-                </p>
-                <h2>Technologies Used:</h2>
-                <ul>
-                    <li>
-                        <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
-                        Python - A versatile and widely-used programming language
-                    </li>
-                    <li>
-                        <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
-                        TypeScript - A statically typed superset of JavaScript, enhancing code quality
-                    </li>
-                    <li>
-                        <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
-                        Svelte - A modern, compiler-based JavaScript framework
-                    </li>
-                    <li>
-                        <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
-                        Django - A powerful Python web framework
-                    </li>
-                    <li>
-                        <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
-                        PostgreSQL - A robust, open-source relational database system
-                    </li>
-                    <li>
-                        <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
-                        EC2 (Elastic Compute Cloud) - Amazon's scalable virtual server infrastructure
-                    </li>
-                    <li>
-                        <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
-                        ECS (Elastic Container Service) - AWS's fully managed Docker container orchestration
-                    </li>
-                    <li>
-                        <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
-                        Fargate - Serverless compute engine for AWS containers, simplifying infrastructure
-                    </li>
-                </ul>
-                <h2>Source Code:</h2>
-                <img class="linkedin-img" src={githubIcon} alt="LinkedIn-Icon" width="30px">
-                <span style="font-size: 18pt;">
-                    <NavAnchor data={sourcecode_link} newTab={false}/>
-                </span>
-
-                <br><br><br>
-
-                <h1>Connect With Me</h1>
-                <ul>
-                    <li>
-                        <img class="linkedin-img" src={emailIcon} alt="email-Icon" width="30px">
-                        <NavAnchor data={email_link} newTab={false}/>
-                    </li>
-                    <li>
-                        <img class="linkedin-img" src={githubIcon} alt="github-Icon" width="30px">
-                        <NavAnchor data={github_link} newTab={true}/>
-                    </li>
-                    <li>
-                        <img class="linkedin-img" src={linkedinIcon} alt="LinkedIn-Icon" width="30px">
-                        <NavAnchor data={linkin_link} newTab={true}/>
-                    </li>
-                </ul>
-            </div>
-        </section>
+        <div class="heroContainer">
+           <section class="mainSections">
+                <div class="infoText-Center">
+                    <h1>About KDM-GEN</h1>
+                    <p>
+                        Welcome to KDM-GEN, a fictional web application built with
+                        the Django framework. This site is not a real product, but rather a showcase
+                        of my skills and knowledge as a full-stack developer.
+                    </p>
+                    <h2>Purpose and Features</h2>
+                    <p>
+                        This project aims to demonstrate seamless user data management
+                        while providing a simple and intuitive user experience. The application
+                        allows users to generate and download Key Delivery Messages (KDMs) for
+                        digital cinema packages (DCPs). The KDMs are generated based on the
+                        user's selection of certificates and DKDMs, which they themselves can
+                        upload to the application.
+                    </p>
+                    <h2>Technologies Used:</h2>
+                    <ul>
+                        <li>
+                            <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
+                            Python - A versatile and widely-used programming language
+                        </li>
+                        <li>
+                            <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
+                            TypeScript - A statically typed superset of JavaScript, enhancing code quality
+                        </li>
+                        <li>
+                            <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
+                            Svelte - A modern, compiler-based JavaScript framework
+                        </li>
+                        <li>
+                            <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
+                            Django - A powerful Python web framework
+                        </li>
+                        <li>
+                            <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
+                            PostgreSQL - A robust, open-source relational database system
+                        </li>
+                        <li>
+                            <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
+                            EC2 (Elastic Compute Cloud) - Amazon's scalable virtual server infrastructure
+                        </li>
+                        <li>
+                            <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
+                            ECS (Elastic Container Service) - AWS's fully managed Docker container orchestration
+                        </li>
+                        <li>
+                            <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
+                            Fargate - Serverless compute engine for AWS containers, simplifying infrastructure
+                        </li>
+                    </ul>
+                    <h2>Source Code:</h2>
+                    <img class="linkedin-img" src={githubIcon} alt="LinkedIn-Icon" width="30px">
+                    <span style="font-size: 18pt;">
+                        <NavAnchor data={sourcecode_link} newTab={false}/>
+                    </span>
+    
+                    <br><br><br>
+    
+                    <h1>Connect With Me</h1>
+                    <ul>
+                        <li>
+                            <img class="linkedin-img" src={emailIcon} alt="email-Icon" width="30px">
+                            <NavAnchor data={email_link} newTab={false}/>
+                        </li>
+                        <li>
+                            <img class="linkedin-img" src={githubIcon} alt="github-Icon" width="30px">
+                            <NavAnchor data={github_link} newTab={true}/>
+                        </li>
+                        <li>
+                            <img class="linkedin-img" src={linkedinIcon} alt="LinkedIn-Icon" width="30px">
+                            <NavAnchor data={linkin_link} newTab={true}/>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </div>
     </HeroSection>
     <div class="footerContainer">
         <FooterLarge navLinks={navLinks} paddingTop="0px" showBorder={false}/>
@@ -133,6 +135,12 @@
         display: flex;
         flex-direction: column;
         min-height: 100vh;
+    }
+    
+    .heroContainer {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1300px;
     }
     .mainSections {
         display: flex;

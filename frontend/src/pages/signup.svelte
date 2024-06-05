@@ -34,7 +34,7 @@
         flashElem.classList.add('hidden');
         let formdata = new FormData(formElem);
 
-        const res = await fetch(`${SERVER_IP}/api/login`, {
+        const res = await fetch(`${SERVER_IP}/api/signup`, {
             method: 'POST',
             body: formdata
         })

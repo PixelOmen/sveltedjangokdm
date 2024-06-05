@@ -45,7 +45,6 @@
             fileSelectInputActual.addEventListener('change', () => {
                 if (fileSelectInputActual.files?.length === 0 || fileSelectInputActual.files === null) return;
                 let file = fileSelectInputActual.files[0];
-                console.log(`File selected: ${file.name}`)
                 dispatch("fileAdded", {header: header, file: file});
             });
         }

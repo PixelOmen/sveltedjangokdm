@@ -11,7 +11,7 @@ from rest_framework.authentication import SessionAuthentication, TokenAuthentica
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 
 
-from .serializers import UserSerializer, KDMCertSerializer
+from .serializers import UserSerializer, CertSerializer
 
 
 class SvelteAppView(TemplateView):

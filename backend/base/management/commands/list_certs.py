@@ -9,4 +9,4 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         certs = Cert.objects.all()
         for cert in certs:
-            self.stdout.write(f"id: {cert.id}, file: {cert.file}, url: {cert.file.url}") # type: ignore
+            self.stdout.write(f"id: {cert.id}, file: {cert.file}, display_name: {cert.display_name}, url: {cert.file.url}, user: {cert.user}") # type: ignore

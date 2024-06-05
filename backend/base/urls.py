@@ -13,6 +13,8 @@ urlpatterns = [
     path('api/signup', views.SignUpView.as_view(), name='signup'),
     path('api/test_token', views.IsAuthView.as_view(), name='test_token'),
 
+    path('api/add_user_cert', views.AddUserCertView.as_view(), name='add_user_cert'),
+
     path('', views.SvelteAppView.as_view(), name='svelte_app'),
     path('kdm', views.SvelteAppView.as_view(), name='svelte_app'),
     path('login', views.SvelteAppView.as_view(), name='svelte_app'),

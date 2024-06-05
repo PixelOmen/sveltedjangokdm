@@ -50,8 +50,8 @@
         
     });
 
-    function showError(e: CustomEvent): void {
-        errorModal.setError(e.detail);
+    function showError(e: string): void {
+        errorModal.setError(e);
         errorModal.show();
     }
 
@@ -59,27 +59,32 @@
         errorModal.hide();
     }
 
-    async function test(e: CustomEvent) {
+    async function uploadCert(e: CustomEvent) {
         if (!e.detail.file) return;
         let formData = new FormData();
         formData.append('file', e.detail.file);
 
         try {
-            let res = await fetch(`${SERVER_IP}/api/test_post`, {
+            let res = await fetch(`${SERVER_IP}/api/add_user_cert`, {
                 method: 'POST',
                 body: formData,
                 headers: {
                     'Authorization': `Token ${get_token()}`
                 }
             });
+            let data = await res.json();
+
             if (res.ok) {
-                let data = await res.json();
                 console.log(data);
             } else {
-                showError(new CustomEvent('error', {detail: `Failed to upload cert: ${res.status}`}));
+                if (data.detail) {
+                    showError(`${data.detail}`);
+                } else {
+                    showError(`Failed to upload cert: ${res.status}`);
+                }
             }
         } catch (e) {
-            showError(new CustomEvent('error', {detail: 'Failed to fetch certs'}));
+            showError(`Failed to upload cert: ${e}`);
         }
     }
 
@@ -143,11 +148,11 @@
         <LoadingIcon width="30px" height="30px"/>
     </div>
     <ErrorModal bind:this={errorModal} on:click={closeError}/>
-    <HeroSection navLinks={navLinks}>
+    <HeroSection navLinks={navLinks} paddingTop="100px">
         <div class="certSection">
             <div style="width: 40%">
                 <SearchList listData={certData}
-                    on:fileAdded={test}
+                    on:fileAdded={uploadCert}
                     bind:selected={selectedCertValue}
                     header="Certificate"
                     boxHeight="200px"
