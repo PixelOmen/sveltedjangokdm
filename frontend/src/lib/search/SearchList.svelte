@@ -9,16 +9,17 @@
     import ListItem from './ListItem.svelte';
     import ImportantBtn from '../ui/ImportantBtn.svelte';
 
-    export let boxWidth = "auto";
-    export let boxHeight = "auto";
     export let listData: ListData;
     export let header: string;
+
+    export let boxWidth = "auto";
+    export let boxHeight = "auto";
     export let searchPlaceholder = "Search";
     export let fileIcon = "";
     export let dirIcon = "";
     export let filetypes = "";
 
-    $: filteredData = listData;
+    $: filteredData = listData.reverse();
 
     let searchInput: HTMLInputElement;
     $: {
@@ -28,7 +29,7 @@
                     filteredData = listData;
                 } else {
                     filteredData = listData.filter((item) => {
-                        let lowerName = item.displayName.toLowerCase();
+                        let lowerName = item.display_name.toLowerCase();
                         let lowerValue = searchInput.value.toLowerCase();
                         return lowerName.includes(lowerValue)
                     })
@@ -50,7 +51,6 @@
             });
         }
     }
-
 
 
     export let selected: ListItemData|null = null;

@@ -14,7 +14,7 @@
         if (selected === null) {
             displayName = "None";
         } else {
-            displayName = selected.displayName;
+            displayName = selected.display_name;
         }
     }
 

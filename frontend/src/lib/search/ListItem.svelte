@@ -1,6 +1,7 @@
 <script context="module" lang="ts">
     export interface ListItemData {
-        displayName: string;
+        id: number;
+        display_name: string;
         isFile: boolean;
         isDir: boolean;
     }
@@ -29,8 +30,8 @@
         {#if data.isDir && dirIcon}
             <img src={dirIcon} alt="File Icon" width="20" height="20">
         {/if}
-        <div class="itemLabel" title={data.displayName}>
-            {data.displayName}
+        <div class="itemLabel" title={data.display_name}>
+            {data.display_name}
         </div>
     </button>
 </li>

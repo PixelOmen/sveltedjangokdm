@@ -1,8 +1,6 @@
 <script context="module" lang="ts">
-    import { onMount, type SvelteComponent } from 'svelte';
+    import { type SvelteComponent } from 'svelte';
     import type { ListItemData } from '../../lib/search/ListItem.svelte'
-
-    import * as coms from '../../lib/coms';
 </script>
 
 <script lang="ts">
@@ -44,11 +42,6 @@
     let startDateComp: SvelteComponent;
     let endDateComp: SvelteComponent;
     let timezoneComp: SvelteComponent;
-    let outputDirComp: SvelteComponent;
-
-    onMount(() => {
-        
-    });
 
     function showError(e: string): void {
         errorModal.setError(e);
@@ -59,13 +52,50 @@
         errorModal.hide();
     }
 
-    async function uploadCert(e: CustomEvent) {
-        if (!e.detail.file) return;
+    async function getRequest(endpoint: string): Promise<any> {
+        try{
+            let res = await fetch(`${SERVER_IP}${endpoint}`, {
+                method: 'GET',                
+                headers: {
+                    'Authorization': `Token ${get_token()}`
+                }
+            });
+            let data = await res.json();
+            
+            if (res.ok) {
+                let formattedData: any = [];
+                data.forEach((item: any) => {
+                    item['isFile'] = true;
+                    item['isDir'] = false;
+                    formattedData.push(item);
+                });
+                return formattedData;
+            } else {
+                if (data.detail) {
+                    showError(`${data.detail}`);
+                } else {
+                    showError(`Failed to get data: ${res.status}`);
+                }
+            }
+        } catch (e) {
+            showError(`Failed GET Request: ${e}`);
+        }
+    }
+
+    getRequest('/api/get_user_certs').then(res => {
+        certData = res;
+    });
+
+    getRequest('/api/get_user_dkdms').then(res => {
+        dkdmData = res;
+    });
+
+    async function uploadFile(file: File, endpoint: string): Promise<void> {
         let formData = new FormData();
-        formData.append('file', e.detail.file);
+        formData.append('file', file);
 
         try {
-            let res = await fetch(`${SERVER_IP}/api/add_user_cert`, {
+            let res = await fetch(`${SERVER_IP}${endpoint}`, {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -80,91 +110,73 @@
                 if (data.detail) {
                     showError(`${data.detail}`);
                 } else {
-                    showError(`Failed to upload cert: ${res.status}`);
+                    showError(`Failed to upload file: ${res.status}`);
                 }
             }
         } catch (e) {
-            showError(`Failed to upload cert: ${e}`);
+            showError(`Failed to upload file: ${e}`);
         }
+    }
+
+    async function uploadCert(e: CustomEvent) {
+        if (!e.detail.file) return;
+        uploadFile(e.detail.file, '/api/add_user_cert');
     }
 
     async function uploadDKDM(e: CustomEvent) {
         if (!e.detail.file) return;
-        let formData = new FormData();
-        formData.append('file', e.detail.file);
-
-        try {
-            let res = await fetch(`${SERVER_IP}/api/add_user_dkdm`, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Authorization': `Token ${get_token()}`
-                }
-            });
-            let data = await res.json();
-
-            if (res.ok) {
-                console.log(data);
-            } else {
-                if (data.detail) {
-                    showError(`${data.detail}`);
-                } else {
-                    showError(`Failed to upload DKDM: ${res.status}`);
-                }
-            }
-        } catch (e) {
-            showError(`Failed to upload DKDM: ${e}`);
-        }
+        uploadFile(e.detail.file, '/api/add_user_dkdm');
     }
 
     async function submit() {
-        startDateComp.clearError();
-        endDateComp.clearError();
-        selectedCertElem.clearError();
-        selectedDKDMElem.clearError();
+        console.log(selectedCertValue);
+        // startDateComp.clearError();
+        // endDateComp.clearError();
+        // selectedCertElem.clearError();
+        // selectedDKDMElem.clearError();
 
-        if (!selectedCertValue) {
-            selectedCertElem.setError();
-        }
+        // if (!selectedCertValue) {
+        //     selectedCertElem.setError();
+        // }
 
-        if (!selectedDKDMValue) {
-            selectedDKDMElem.setError();
-        }        
+        // if (!selectedDKDMValue) {
+        //     selectedDKDMElem.setError();
+        // }        
 
-        let start = startDateComp.getValue();
-        if (!start) {
-            startDateComp.setError();
-        }
+        // let start = startDateComp.getValue();
+        // if (!start) {
+        //     startDateComp.setError();
+        // }
 
-        let end = endDateComp.getValue();
-        if (!end) {
-            endDateComp.setError();
-        }
+        // let end = endDateComp.getValue();
+        // if (!end) {
+        //     endDateComp.setError();
+        // }
 
-        if (!(
-            selectedCertValue &&
-            selectedDKDMValue &&
-            start && end
-        )) {
-            return;
-        }
+        // if (!(
+        //     selectedCertValue &&
+        //     selectedDKDMValue &&
+        //     start && end
+        // )) {
+        //     return;
+        // }
         
-        let tz = timezoneComp.getValue();
+        // let tz = timezoneComp.getValue();
 
-        let data = {
-            "cert": selectedCertValue,
-            "dkdm": selectedDKDMValue.displayName,
-            "startDate": start,
-            "endDate": end,
-            "timezone": tz,
-        }
+        // let data = {
+        //     "cert": selectedCertValue,
+        //     "dkdm": selectedDKDMValue.display_name,
+        //     "startDate": start,
+        //     "endDate": end,
+        //     "timezone": tz,
+        // }
 
-        showLoading = true;
-        coms.submitJSON('/api/kdm/submit', data).then(res => {
-            console.log(res.status);
-            // updateHistory();
-            showLoading = false;
-        });
+        // showLoading = true;
+        // coms.submitJSON('/api/kdm/submit', data).then(res => {
+        //     console.log(res.status);
+        //     // updateHistory();
+        //     showLoading = false;
+        // });
     }
 </script>
 
@@ -199,6 +211,8 @@
                     header="CPL DKDM"
                     boxHeight="200px"
                     searchPlaceholder="Search CPLs"
+                    fileIcon={CertificateIcon}
+                    dirIcon={FolderIcon}
                     filetypes=".xml"
                 />
                 <Selected bind:this={selectedDKDMElem} selected={selectedDKDMValue}/>
