@@ -6,8 +6,5 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         users = User.objects.all()
-        user = User.objects.get(username="TestUser")
-        if user:
-            print(user.username)
         for user in users:
             self.stdout.write(f"ID: {user.id}, Username: {user.username}, Email: {user.email}, Date Joined: {user.date_joined}") #type: ignore

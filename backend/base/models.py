@@ -20,6 +20,7 @@ class Cert(models.Model):
 
 class DKDM(models.Model):
     file = models.FileField(upload_to='dkdms/')
+    display_name = models.CharField(max_length=255, blank=True, null=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -28,3 +29,8 @@ class DKDM(models.Model):
     
     class Meta:
         ordering = ['-file']
+
+    def save(self, *args, **kwargs):
+        if not self.display_name:
+            self.display_name = self.file.name
+        super(DKDM, self).save(*args, **kwargs)

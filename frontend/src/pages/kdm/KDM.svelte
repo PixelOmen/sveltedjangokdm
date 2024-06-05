@@ -88,6 +88,35 @@
         }
     }
 
+    async function uploadDKDM(e: CustomEvent) {
+        if (!e.detail.file) return;
+        let formData = new FormData();
+        formData.append('file', e.detail.file);
+
+        try {
+            let res = await fetch(`${SERVER_IP}/api/add_user_dkdm`, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Authorization': `Token ${get_token()}`
+                }
+            });
+            let data = await res.json();
+
+            if (res.ok) {
+                console.log(data);
+            } else {
+                if (data.detail) {
+                    showError(`${data.detail}`);
+                } else {
+                    showError(`Failed to upload DKDM: ${res.status}`);
+                }
+            }
+        } catch (e) {
+            showError(`Failed to upload DKDM: ${e}`);
+        }
+    }
+
     async function submit() {
         startDateComp.clearError();
         endDateComp.clearError();
@@ -159,15 +188,18 @@
                     searchPlaceholder="Search Certs"
                     fileIcon={CertificateIcon}
                     dirIcon={FolderIcon}
+                    filetypes=".pem,.crt,.cer"
                 />
                 <Selected bind:this={selectedCertElem} selected={selectedCertValue}/>
             </div>
             <div style="width: 40%">
                 <SearchList listData={dkdmData}
+                    on:fileAdded={uploadDKDM}
                     bind:selected={selectedDKDMValue}
                     header="CPL DKDM"
                     boxHeight="200px"
                     searchPlaceholder="Search CPLs"
+                    filetypes=".xml"
                 />
                 <Selected bind:this={selectedDKDMElem} selected={selectedDKDMValue}/>
             </div>

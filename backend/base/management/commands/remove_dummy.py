@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 
-from ...models import Cert
+from ...models import Cert, DKDM
 
 class Command(BaseCommand):
     help = 'View Users'
@@ -11,3 +11,7 @@ class Command(BaseCommand):
         for cert in certs:
             cert.delete()
         print("Certs deleted successfully")
+        dkdm = DKDM.objects.all()
+        for dk in dkdm:
+            dk.delete()
+        print("DKDMs deleted successfully")

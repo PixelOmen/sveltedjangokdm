@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 
-from .models import Cert
+from . import models
 
 def format_errors(serializer) -> str:
     error_str = ''
@@ -21,5 +21,12 @@ class CertSerializer(serializers.ModelSerializer):
     file = serializers.FileField()
 
     class Meta:
-        model = Cert
+        model = models.Cert
+        fields = '__all__'
+
+class DKDMSerializer(serializers.ModelSerializer):
+    file = serializers.FileField()
+
+    class Meta:
+        model = models.DKDM
         fields = '__all__'

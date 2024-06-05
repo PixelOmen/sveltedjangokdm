@@ -16,6 +16,7 @@
     export let searchPlaceholder = "Search";
     export let fileIcon = "";
     export let dirIcon = "";
+    export let filetypes = "";
 
     $: filteredData = listData;
 
@@ -100,7 +101,7 @@
             {/each}
         {/if}
     </ul>
-    <input bind:this={fileSelectInputActual} type="file" class="fileSelect-btn-actual hidden" accept=".pem,.crt,.cer" multiple={false}>
+    <input bind:this={fileSelectInputActual} type="file" class="fileSelect-btn-actual hidden" accept={filetypes} multiple={false}>
 </div>
 
 <style>
