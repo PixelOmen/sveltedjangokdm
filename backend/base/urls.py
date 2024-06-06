@@ -7,10 +7,10 @@ from . import views
 
 urlpatterns = [
     path('api/public_leaf', views.ServePublicLeafView.as_view(), name='public_leaf'),    
-    path('api/login', views.LoginView.as_view(), name='login'),
-    path('api/logout', views.Logoutview.as_view(), name='logout'),
+    path('api/login', views.LoginToken.as_view(), name='login'),
+    path('api/logout', views.LogoutToken.as_view(), name='logout'),
     path('api/signup', views.SignUpView.as_view(), name='signup'),
-    path('api/test_token', views.IsAuthView.as_view(), name='test_token'),
+    path('api/test_token', views.TestToken.as_view(), name='test_token'),
 
     path('api/add_user_cert', views.AddCert.as_view(), name='add_user_cert'),
     path('api/add_user_dkdm', views.AddDKDM.as_view(), name='add_user_dkdm'),

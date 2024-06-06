@@ -19,7 +19,9 @@
     };
 
     let formElem: HTMLFormElement;
-    let flashElem: HTMLDivElement;
+    let flashInvalid: HTMLDivElement;
+    let flashPassMatch: HTMLDivElement;
+    let flashUserExists: HTMLDivElement;
 
     $: {
         if (formElem) {
@@ -30,8 +32,25 @@
         }
     }
 
+    function validate() {
+        let password = formElem.password.value;
+        let password2 = formElem.password2.value;
+        if (password !== password2) {
+            flashPassMatch.classList.remove('hidden');
+            return false;
+        }
+        return true;
+    }
+
     async function login() {
-        flashElem.classList.add('hidden');
+        flashInvalid.classList.add('hidden');
+        flashPassMatch.classList.add('hidden');
+        flashUserExists.classList.add('hidden');
+
+        if (!validate()) {
+            return;
+        }
+
         let formdata = new FormData(formElem);
 
         const res = await fetch(`${SERVER_IP}/api/signup`, {
@@ -43,7 +62,12 @@
             save_token(data.token);
             navigate('/kdm');
         } else {
-            flashElem.classList.remove('hidden');
+            let err = await res.json();
+            if (err.detail.toLowerCase().includes('username already exists')) {
+                flashUserExists.classList.remove('hidden');
+            } else {
+                flashInvalid.classList.remove('hidden');
+            }
         }
     }
 </script>
@@ -61,17 +85,21 @@
         </div>
         <form bind:this={formElem} class="container">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>            
+            <input type="email" id="email" name="email" required placeholder="Email">            
             <label for="username">Username</label>
-            <input type="text" id="username" name="username" required>
+            <input type="text" id="username" name="username" required placeholder="Username">
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
+            <input type="password" id="password" name="password" required placeholder="Password">
+            <label for="password2">Confirm Password</label>
+            <input type="password" id="password2" name="password2" required placeholder="Confirm Password">
             <ImportantBtn
                 content="Sign Up"
                 padding="10px 20px"
                 margin="20px 0px"
             />
-            <div bind:this={flashElem} class="flash hidden">Invalid Username/Password</div>
+            <div bind:this={flashInvalid} class="flash hidden">Invalid Username/Password</div>
+            <div bind:this={flashPassMatch} class="flash hidden">Passwords do not match</div>
+            <div bind:this={flashUserExists} class="flash hidden">Username already exists</div>
             <ul class="loginLink">
                 <NavAnchor data={loginLink}/>
             </ul>
@@ -113,6 +141,7 @@
         color: red;
         margin-left: auto;
         margin-right: auto;
+        margin-bottom: 10px;
     }
 
     label {

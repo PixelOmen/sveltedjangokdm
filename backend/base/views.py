@@ -28,6 +28,12 @@ class ServePublicLeafView(APIView):
         else:
             return Http404('File not found!') 
 
+class TestToken(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [SessionAuthentication, TokenAuthentication]
+
+    def get(self, request):
+        return Response({'detail': f"Passed token test! {request.user.email}"})
 
 
 
@@ -130,7 +136,7 @@ class DKDMDetail(APIView):
 
 
 
-class LoginView(APIView):
+class LoginToken(APIView):
     def post(self, request):
         user = get_object_or_404(User, username=request.data['username'])
         if not user.check_password(request.data['password']):
@@ -142,7 +148,7 @@ class LoginView(APIView):
         serializer = serializers.UserSerializer(instance=user)
         return Response({'token': token[0].key, 'user': serializer.data})
     
-class Logoutview(APIView):
+class LogoutToken(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [SessionAuthentication, TokenAuthentication]
 
@@ -152,6 +158,7 @@ class Logoutview(APIView):
         except (AttributeError, Token.DoesNotExist):
             pass
         return Response({'detail': 'Logout successful!'}, status=status.HTTP_200_OK)
+
 
 
 class SignUpView(APIView):
@@ -167,11 +174,7 @@ class SignUpView(APIView):
                 {'token': token.key, 'user': serializer.data},
                 status=status.HTTP_201_CREATED
             )
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-class IsAuthView(APIView):
-    permission_classes = [IsAuthenticated]
-    authentication_classes = [SessionAuthentication, TokenAuthentication]
-
-    def get(self, request):
-        return Response({'detail': f"Passed token test! {request.user.email}"})
+        return Response(
+                {'detail': serializers.format_errors(serializer)},
+                 status=status.HTTP_400_BAD_REQUEST
+            )

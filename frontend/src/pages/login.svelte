@@ -61,9 +61,9 @@
         </div>
         <form bind:this={formElem} class="container">
             <label for="username">Username</label>
-            <input type="text" id="username" name="username" required>
+            <input type="text" id="username" name="username" required placeholder="Username">
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
+            <input type="password" id="password" name="password" required placeholder="Password">
             <ImportantBtn
                 content="Login"
                 padding="10px 20px"

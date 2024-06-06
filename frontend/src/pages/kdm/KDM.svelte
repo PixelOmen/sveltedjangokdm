@@ -5,6 +5,7 @@
 
 <script lang="ts">
     import { onMount } from 'svelte';
+    import { navigate } from 'svelte-routing';
     import { get_token } from '../../stores/auth';
 
     import FolderIcon from "../../assets/folderIcon.svg"
@@ -44,14 +45,6 @@
     let endDateComp: SvelteComponent;
     let timezoneComp: SvelteComponent;
 
-    function showError(e: string): void {
-        errorModal.setError(e);
-        errorModal.show();
-    }
-
-    function closeError() {
-        errorModal.hide();
-    }
 
     onMount(() => {
         getRequest('/api/get_user_certs').then(res => {
@@ -63,11 +56,36 @@
         });
     });
 
+
+
+    function showError(e: string): void {
+        errorModal.setError(e);
+        errorModal.show();
+    }
+
+    function closeError() {
+        errorModal.hide();
+    }
+
+    async function isAuth() {
+        let res = await fetch(`${SERVER_IP}/api/test_token`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Token ${get_token()}`
+            }
+        });
+        if (!res.ok) {
+            navigate('/login');
+        }
+    };
+
+
     function downloadLeaf() {
         window.open(`${SERVER_IP}/api/public_leaf`, '_blank');
     }
 
     async function getRequest(endpoint: string): Promise<any> {
+        isAuth();
         try{
             let res = await fetch(`${SERVER_IP}${endpoint}`, {
                 method: 'GET',                
@@ -98,6 +116,7 @@
     }
 
     async function deleteRequest(endpoint: string): Promise<void> {
+        isAuth();
         try {
             let res = await fetch(`${SERVER_IP}${endpoint}`, {
                 method: 'DELETE',
@@ -119,8 +138,8 @@
         }
     }
 
-
     async function uploadFile(file: File, endpoint: string): Promise<void> {
+        isAuth();
         let formData = new FormData();
         formData.append('file', file);
 
@@ -145,6 +164,8 @@
             showError(`Failed to upload file: ${e}`);
         }
     }
+
+
 
     async function deleteCert(e: CustomEvent) {
         let endpoint = `/api/certs/${e.detail.data.id}`;

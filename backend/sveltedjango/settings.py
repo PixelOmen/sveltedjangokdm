@@ -10,9 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
+import mimetypes
 from pathlib import Path
 from dotenv import load_dotenv
-import mimetypes
 
 mimetypes.add_type("text/javascript", ".js", True)
 
@@ -96,8 +97,12 @@ WSGI_APPLICATION = 'sveltedjango.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('POSTGRES_DB'),
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'HOST': '127.0.0.1',
+        'PORT': '5435',
     }
 }
 
