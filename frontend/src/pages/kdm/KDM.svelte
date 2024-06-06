@@ -103,9 +103,7 @@
             });
             let data = await res.json();
 
-            if (res.ok) {
-                console.log(data);
-            } else {
+            if (!res.ok) {
                 if (data.detail) {
                     showError(`${data.detail}`);
                 } else {
@@ -132,9 +130,7 @@
             });
             let data = await res.json();
 
-            if (res.ok) {
-                console.log(data);
-            } else {
+            if (!res.ok) {
                 if (data.detail) {
                     showError(`${data.detail}`);
                 } else {

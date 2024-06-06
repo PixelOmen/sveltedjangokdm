@@ -40,7 +40,7 @@
 <style>
     .container {
         position: fixed;
-        top: 50%;
+        top: 30%;
         left: 50%;
         transform: translate(-50%, -50%);
         border: 2px solid rgb(29, 29, 29);

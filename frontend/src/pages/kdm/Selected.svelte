@@ -8,6 +8,7 @@
     export let selected: ListItemData | null = null;
 
     let errorCard: SvelteComponent;
+    let displayBox: HTMLDivElement;
 
     let displayName: string;
     $: {
@@ -16,6 +17,12 @@
         } else {
             displayName = selected.display_name;
         }
+        if (displayBox) {
+            displayBox.classList.add("displayBoxHighlight");
+            setTimeout(() => {
+                displayBox.classList.remove("displayBoxHighlight");
+            }, 500);
+        }        
     }
 
     export function setError(): void {
@@ -32,7 +39,7 @@
         Selected:
     </h4>
     <ErrorCard bind:this={errorCard}>
-        <div class="displayBox" title={displayName}>
+        <div bind:this={displayBox} class="displayBox displayBoxHighlight" title={displayName}>
             {displayName}
         </div>
     </ErrorCard>
@@ -62,5 +69,10 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        transition: border 0.3s;
+    }
+
+    .displayBoxHighlight {
+        border: 2px solid orange;
     }
 </style>

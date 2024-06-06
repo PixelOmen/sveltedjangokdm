@@ -61,8 +61,8 @@
                         user's selection of certificates and DKDMs, which they themselves can
                         upload to the application.
                     </p>
-                    <h2>Technologies Used:</h2>
-                    <ul>
+                    <h2>Technologies</h2>
+                    <ul class="techlist">
                         <li>
                             <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
                             Python - A versatile and widely-used programming language
@@ -95,13 +95,7 @@
                             <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
                             Fargate - Serverless compute engine for AWS containers, simplifying infrastructure
                         </li>
-                    </ul>
-                    <h2>Source Code:</h2>
-                    <img class="linkedin-img" src={githubIcon} alt="LinkedIn-Icon" width="30px">
-                    <span style="font-size: 18pt;">
-                        <NavAnchor data={sourcecode_link} newTab={false}/>
-                    </span>
-    
+                    </ul>    
                     <br><br><br>
     
                     <h1>Connect With Me</h1>
@@ -119,6 +113,11 @@
                             <NavAnchor data={linkin_link} newTab={true}/>
                         </li>
                     </ul>
+                    <h2>Source Code</h2>
+                    <img class="linkedin-img" src={githubIcon} alt="LinkedIn-Icon" width="30px">
+                    <span style="font-size: 18pt;">
+                        <NavAnchor data={sourcecode_link} newTab={true}/>
+                    </span>
                 </div>
             </section>
         </div>
@@ -151,6 +150,7 @@
         padding: 0px 50px;
         max-width: 1800px;
         align-items: center;
+        text-align: center;
     }
 
     p {
@@ -160,6 +160,13 @@
 
     li {
         font-size: 18pt;
+    }
+
+    .techlist {
+        /* border: 1px solid red; */
+        text-align: left;
+        padding-left: 100px;
+        /* max-width: 300px; */
     }
 
     .linkedin-img {
@@ -174,7 +181,8 @@
     }
 
     h2 {
-        margin-bottom: 5px;
+        margin-bottom: 10px;
+        margin-top: 70px;
     }
 
     .checkmark {
