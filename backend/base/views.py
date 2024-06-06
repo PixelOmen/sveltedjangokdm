@@ -128,6 +128,8 @@ class DKDMDetail(APIView):
         return Response({'detail': 'DKDM deleted successfully!'}, status=status.HTTP_200_OK)
 
 
+
+
 class LoginView(APIView):
     def post(self, request):
         user = get_object_or_404(User, username=request.data['username'])

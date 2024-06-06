@@ -136,6 +136,6 @@
         display: flex;
         flex-direction: column;
         padding: 5px 5px;
-        overflow: auto;
+        max-width: 100%;
     }
 </style>
