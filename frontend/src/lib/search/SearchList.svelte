@@ -60,6 +60,11 @@
         dispatch("searchItemSelected", {header: header, data: e.detail});
     }
 
+    function searchItemDeleted(e: CustomEvent) {
+        selected = e.detail;
+        dispatch("searchItemDeleted", {header: header, data: e.detail});
+    }
+
 </script>
 
 <div class="container" style="width: {boxWidth}">
@@ -96,6 +101,7 @@
             <ListItem 
                 data={item}
                 on:searchItemSelected={searchItemSelected}
+                on:searchItemDeleted={searchItemDeleted}
                 {fileIcon} {dirIcon}
             />
             {/each}

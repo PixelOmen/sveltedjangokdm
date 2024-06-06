@@ -4,6 +4,7 @@
 </script>
 
 <script lang="ts">
+    import { onMount } from 'svelte';
     import { get_token } from '../../stores/auth';
 
     import FolderIcon from "../../assets/folderIcon.svg"
@@ -52,6 +53,16 @@
         errorModal.hide();
     }
 
+    onMount(() => {
+        getRequest('/api/get_user_certs').then(res => {
+            certData = res;
+        });
+
+        getRequest('/api/get_user_dkdms').then(res => {
+            dkdmData = res;
+        });
+    });
+
     async function getRequest(endpoint: string): Promise<any> {
         try{
             let res = await fetch(`${SERVER_IP}${endpoint}`, {
@@ -82,13 +93,30 @@
         }
     }
 
-    getRequest('/api/get_user_certs').then(res => {
-        certData = res;
-    });
+    async function deleteRequest(endpoint: string): Promise<void> {
+        try {
+            let res = await fetch(`${SERVER_IP}${endpoint}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Token ${get_token()}`
+                }
+            });
+            let data = await res.json();
 
-    getRequest('/api/get_user_dkdms').then(res => {
-        dkdmData = res;
-    });
+            if (res.ok) {
+                console.log(data);
+            } else {
+                if (data.detail) {
+                    showError(`${data.detail}`);
+                } else {
+                    showError(`Failed to delete file: ${res.status}`);
+                }
+            }
+        } catch (e) {
+            showError(`Failed to delete file: ${e}`);
+        }
+    }
+
 
     async function uploadFile(file: File, endpoint: string): Promise<void> {
         let formData = new FormData();
@@ -118,14 +146,36 @@
         }
     }
 
+    async function deleteCert(e: CustomEvent) {
+        let endpoint = `/api/certs/${e.detail.data.id}`;
+        await deleteRequest(endpoint);
+        getRequest('/api/get_user_certs').then(res => {
+            certData = res;
+        });
+    }
+
+    async function deleteDKDM(e: CustomEvent) {
+        let endpoint = `/api/dkdms/${e.detail.data.id}`;
+        await deleteRequest(endpoint);
+        getRequest('/api/get_user_dkdms').then(res => {
+            dkdmData = res;
+        });
+    }
+
     async function uploadCert(e: CustomEvent) {
         if (!e.detail.file) return;
-        uploadFile(e.detail.file, '/api/add_user_cert');
+        await uploadFile(e.detail.file, '/api/add_user_cert');
+        getRequest('/api/get_user_certs').then(res => {
+            certData = res;
+        });
     }
 
     async function uploadDKDM(e: CustomEvent) {
         if (!e.detail.file) return;
-        uploadFile(e.detail.file, '/api/add_user_dkdm');
+        await uploadFile(e.detail.file, '/api/add_user_dkdm');
+        getRequest('/api/get_user_dkdms').then(res => {
+            dkdmData = res;
+        });
     }
 
     async function submit() {
@@ -194,6 +244,7 @@
             <div style="width: 40%">
                 <SearchList listData={certData}
                     on:fileAdded={uploadCert}
+                    on:searchItemDeleted={deleteCert}
                     bind:selected={selectedCertValue}
                     header="Certificate"
                     boxHeight="200px"
@@ -207,6 +258,7 @@
             <div style="width: 40%">
                 <SearchList listData={dkdmData}
                     on:fileAdded={uploadDKDM}
+                    on:searchItemDeleted={deleteDKDM}
                     bind:selected={selectedDKDMValue}
                     header="CPL DKDM"
                     boxHeight="200px"

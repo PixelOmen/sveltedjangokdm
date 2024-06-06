@@ -29,7 +29,9 @@ class ServePublicLeafView(APIView):
             return Http404('File not found!') 
 
 
-class AddUserCertView(APIView):
+
+
+class AddCert(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [SessionAuthentication, TokenAuthentication]
 
@@ -37,16 +39,22 @@ class AddUserCertView(APIView):
         file_name = request.data['file'].name
         exists = models.Cert.objects.filter(user=request.user.id, display_name=file_name).exists()
         if exists:
-            return Response({'detail': 'Cert already exists!'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {'detail': 'Cert already exists!'},
+                  status=status.HTTP_400_BAD_REQUEST
+            )
         request.data['user'] = request.user.id
         serializer = serializers.CertSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response({'detail': 'Cert uploaded successfully!'}, status=status.HTTP_201_CREATED)
         else:
-            return Response({'detail': serializers.format_errors(serializer)}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {'detail': serializers.format_errors(serializer)},
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
-class AddUserDKDMView(APIView):
+class AddDKDM(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [SessionAuthentication, TokenAuthentication]
 
@@ -68,8 +76,10 @@ class AddUserDKDMView(APIView):
                 {'detail': serializers.format_errors(serializer)},
                  status=status.HTTP_400_BAD_REQUEST
             )
-        
-class GetUserCertsView(APIView):
+
+
+
+class CertList(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [SessionAuthentication, TokenAuthentication]
 
@@ -78,7 +88,7 @@ class GetUserCertsView(APIView):
         serializer = serializers.CertSerializer(certs, many=True)
         return Response(serializer.data)
     
-class GetUserDKDMsView(APIView):
+class DKDMList(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [SessionAuthentication, TokenAuthentication]
 
@@ -86,6 +96,37 @@ class GetUserDKDMsView(APIView):
         dkdms = models.DKDM.objects.filter(user=request.user.id)
         serializer = serializers.DKDMSerializer(dkdms, many=True)
         return Response(serializer.data)
+
+
+
+class CertDetail(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [SessionAuthentication, TokenAuthentication]
+
+    def get(self, request, pk):
+        cert = get_object_or_404(models.Cert, id=pk)
+        serializer = serializers.CertSerializer(cert)
+        return Response(serializer.data)
+
+    def delete(self, request, pk):
+        cert = get_object_or_404(models.Cert, id=pk)
+        cert.delete()
+        return Response({'detail': 'Cert deleted successfully!'}, status=status.HTTP_200_OK)
+    
+class DKDMDetail(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [SessionAuthentication, TokenAuthentication]
+
+    def get(self, request, pk):
+        dkdm = get_object_or_404(models.DKDM, id=pk)
+        serializer = serializers.DKDMSerializer(dkdm)
+        return Response(serializer.data)
+
+    def delete(self, request, pk):
+        dkdm = get_object_or_404(models.DKDM, id=pk)
+        dkdm.delete()
+        return Response({'detail': 'DKDM deleted successfully!'}, status=status.HTTP_200_OK)
+
 
 class LoginView(APIView):
     def post(self, request):
