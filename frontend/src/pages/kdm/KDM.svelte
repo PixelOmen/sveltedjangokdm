@@ -63,6 +63,10 @@
         });
     });
 
+    function downloadLeaf() {
+        window.open(`${SERVER_IP}/api/public_leaf`, '_blank');
+    }
+
     async function getRequest(endpoint: string): Promise<any> {
         try{
             let res = await fetch(`${SERVER_IP}${endpoint}`, {
@@ -275,18 +279,23 @@
                 <DateSelect bind:this={timezoneComp} isTimezone={true} header="Timezone"/>
             </div>
             <div class="outputContainer">
-                <div>
-                    {#if showLoading}
-                        <LoadingIcon width="30px" height="30px"/>
-                    {:else}
-                        <ImportantBtn
-                            on:click={submit}
-                            content="Generate"
-                            fontSize="12pt"
-                            padding="10px 150px"
-                        />
-                    {/if}
-                </div>
+                <ImportantBtn
+                    on:click={downloadLeaf}
+                    content="Get Certificate"
+                    fontSize="12pt"
+                    padding="10px 55px"
+                    margin="0px 00px"
+                />
+                {#if showLoading}
+                    <LoadingIcon width="30px" height="30px"/>
+                {:else}
+                    <ImportantBtn
+                        on:click={submit}
+                        content="Generate KDM"
+                        fontSize="12pt"
+                        padding="10px 55px"
+                    />
+                {/if}
             </div>
         </div>
     </section>
@@ -342,9 +351,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 800px;
+        width: 100%;
         padding: 5px;
-        gap: 10px
+        gap: 5%;
     }
 
     .footerContainer {
