@@ -69,11 +69,11 @@
         cursor: pointer;
         border-radius: 5px;
         background-color: #1a7c89;
-        font-weight: 900;        
+        /* font-weight: 900; */
     }
     .itemLabel {
         max-width: 100%;
-        padding: 0px 3px;
+        padding: 1px 5px;
         font-size: 10pt;
         font-family: inherit;
         color: whitesmoke;

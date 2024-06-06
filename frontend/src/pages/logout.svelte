@@ -22,7 +22,6 @@
     }
 
     onMount(() => {
-        // console.log(localStorage.getItem('token'))
         if (!get(isAuthenticated)) {
             navigate('/login');
         }
