@@ -1,0 +1,6 @@
+FROM python:3.10.11-bullseye
+EXPOSE 8000
+COPY . /django_kdm
+WORKDIR /django_kdm
+RUN pip install --no-cache-dir -r requirements.txt
+RUN python3 manage.py collectstatic --noinput
