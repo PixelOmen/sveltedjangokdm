@@ -1,6 +1,8 @@
 __pycache__
 .venv
 .env
+.env_dev
+.env_prod
 .vscode
 
 # Logs
@@ -32,3 +34,4 @@ dist-ssr
 **/media/dkdms/
 **/staticfiles/admin/
 **/staticfiles/rest_framework/
+temp.py

@@ -1,6 +1,5 @@
 <script lang="ts">
     import { get } from "svelte/store";
-    import { navigate } from "svelte-routing";
     
     import { isAuthenticated } from "../stores/auth";
 
@@ -49,8 +48,8 @@
                     <h1>About KDM-GEN</h1>
                     <p>
                         Welcome to KDM-GEN, a fictional web application built with
-                        the Django framework. This site is not a real product, but rather a showcase
-                        of my skills and knowledge as a full-stack developer.
+                        the Django framework. This site is not a real product, but rather a demonstration
+                        of a full web stack.
                     </p>
                     <h2>Purpose and Features</h2>
                     <p>
@@ -85,6 +84,11 @@
                         </li>
                         <li>
                             <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
+                            Docker - A platform for developing, shipping, and running applications in containers
+
+                        </li>
+                        <li>
+                            <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
                             EC2 (Elastic Compute Cloud) - Amazon's scalable virtual server infrastructure
                         </li>
                         <li>
@@ -113,7 +117,7 @@
                             <NavAnchor data={linkin_link} newTab={true}/>
                         </li>
                     </ul>
-                    <h2>Source Code</h2>
+                    <h2 style="margin-top: 30px">Source Code</h2>
                     <img class="linkedin-img" src={githubIcon} alt="LinkedIn-Icon" width="30px">
                     <span style="font-size: 18pt;">
                         <NavAnchor data={sourcecode_link} newTab={true}/>
@@ -182,7 +186,7 @@
 
     h2 {
         margin-bottom: 10px;
-        margin-top: 70px;
+        margin-top: 60px;
     }
 
     .checkmark {
