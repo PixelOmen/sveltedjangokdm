@@ -89,15 +89,7 @@
                         </li>
                         <li>
                             <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
-                            EC2 (Elastic Compute Cloud) - Amazon's scalable virtual server infrastructure
-                        </li>
-                        <li>
-                            <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
-                            ECS (Elastic Container Service) - AWS's fully managed Docker container orchestration
-                        </li>
-                        <li>
-                            <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
-                            Fargate - Serverless compute engine for AWS containers, simplifying infrastructure
+                            DigitalOcean - A cloud infrastructure provider offering scalable resources
                         </li>
                     </ul>    
                     <br><br><br>

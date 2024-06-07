@@ -80,6 +80,10 @@
         window.open(`${SERVER_IP}/api/public_leaf`, '_blank');
     }
 
+    function downloadSamples() {
+        window.open(`${SERVER_IP}/api/sample_files`, '_blank');
+    }
+
     async function getRequest(endpoint: string): Promise<any> {
         failedAuthNavigate();
         try{
@@ -322,7 +326,7 @@
                 margin="0px 0px"
             />
             <ImportantBtn
-                on:click={downloadLeaf}
+                on:click={downloadSamples}
                 content="Sample Files"
                 fontSize="12pt"
                 padding="10px 60px"
