@@ -26,7 +26,7 @@ class ServePublicLeafView(APIView):
         if os.path.exists(file_path):
             return FileResponse(open(file_path, 'rb'), as_attachment=True, filename='public_leaf.pem')
         else:
-            return Http404('File not found!') 
+            return Http404('File not found!')
 
 class TestToken(APIView):
     permission_classes = [IsAuthenticated]
@@ -175,6 +175,6 @@ class SignUpView(APIView):
                 status=status.HTTP_201_CREATED
             )
         return Response(
-                {'detail': serializers.format_errors(serializer)},
-                 status=status.HTTP_400_BAD_REQUEST
-            )
+            {'detail': serializers.format_errors(serializer)},
+                status=status.HTTP_400_BAD_REQUEST
+        )

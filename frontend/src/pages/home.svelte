@@ -1,8 +1,7 @@
 <script lang="ts">
-    import { get } from "svelte/store";
     import { navigate } from "svelte-routing";
     
-    import { isAuthenticated } from "../stores/auth";
+    import { validateToken } from '../lib/coms';
     
     import home1 from '../assets/Home_1.png'
     import home2 from '../assets/Home_2.png'
@@ -12,21 +11,29 @@
     import FooterLarge from "../lib/sections/FooterLarge.svelte";
 
     const SERVER_IP = import.meta.env.VITE_API_SERVER_IP;
-    let navLinks = [];
+    let navLinks: any = [];
 
-    if (get(isAuthenticated)) {
-        navLinks = [
-            {displayName: "Generate", url: `/kdm`},
-            {displayName: "About", url: `/about`},
-            {displayName: "Logout", url: `/logout`},
-        ]
-    } else {
-        navLinks = [
-            {displayName: "Sign Up / Log In", url: `/login`},
-            {displayName: "About", url: `/about`},
-        ]
-    
+    async function isAuth() {
+        let res = await validateToken(SERVER_IP);
+        return res.ok;
     }
+
+    async function setNavlinks() {
+        if (await isAuth()) {
+            navLinks = [
+                {displayName: "Generate", url: `/kdm`},
+                {displayName: "About", url: `/about`},
+                {displayName: "Logout", url: `/logout`},
+            ]
+        } else {
+            navLinks = [
+                {displayName: "Sign Up / Log In", url: `/login`},
+                {displayName: "About", url: `/about`},
+            ]
+        
+        }
+    };
+    setNavlinks();
 
     function downloadLeaf() {
         window.open(`${SERVER_IP}/api/public_leaf`, '_blank');

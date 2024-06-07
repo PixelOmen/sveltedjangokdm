@@ -7,6 +7,7 @@
     import { onMount } from 'svelte';
     import { navigate } from 'svelte-routing';
     import { get_token } from '../../stores/auth';
+    import { validateToken } from '../../lib/coms';
 
     import FolderIcon from "../../assets/folderIcon.svg"
     import CertificateIcon from "../../assets/certificate.svg";
@@ -67,13 +68,8 @@
         errorModal.hide();
     }
 
-    async function isAuth() {
-        let res = await fetch(`${SERVER_IP}/api/test_token`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Token ${get_token()}`
-            }
-        });
+    async function failedAuthNavigate() {
+        let res = await validateToken(SERVER_IP);
         if (!res.ok) {
             navigate('/login');
         }
@@ -85,7 +81,7 @@
     }
 
     async function getRequest(endpoint: string): Promise<any> {
-        isAuth();
+        failedAuthNavigate();
         try{
             let res = await fetch(`${SERVER_IP}${endpoint}`, {
                 method: 'GET',                
@@ -116,7 +112,7 @@
     }
 
     async function deleteRequest(endpoint: string): Promise<void> {
-        isAuth();
+        failedAuthNavigate();
         try {
             let res = await fetch(`${SERVER_IP}${endpoint}`, {
                 method: 'DELETE',
@@ -139,7 +135,7 @@
     }
 
     async function uploadFile(file: File, endpoint: string): Promise<void> {
-        isAuth();
+        failedAuthNavigate();
         let formData = new FormData();
         formData.append('file', file);
 
@@ -300,13 +296,7 @@
                 <DateSelect bind:this={timezoneComp} isTimezone={true} header="Timezone"/>
             </div>
             <div class="outputContainer">
-                <ImportantBtn
-                    on:click={downloadLeaf}
-                    content="Get Certificate"
-                    fontSize="12pt"
-                    padding="10px 55px"
-                    margin="0px 00px"
-                />
+
                 {#if showLoading}
                     <LoadingIcon width="30px" height="30px"/>
                 {:else}
@@ -320,6 +310,26 @@
             </div>
         </div>
     </section>
+    <div class="helpSection">
+        <h1>Helpful Downloads</h1>
+        <p>Get the resources you need to get started.</p>
+        <div class="downloadContainer">
+            <ImportantBtn
+                on:click={downloadLeaf}
+                content="Leaf Certificate"
+                fontSize="12pt"
+                padding="10px 55px"
+                margin="0px 0px"
+            />
+            <ImportantBtn
+                on:click={downloadLeaf}
+                content="Sample Files"
+                fontSize="12pt"
+                padding="10px 60px"
+                margin="0px 0px"
+            />
+        </div>
+    </div>
     <div class="footerContainer">
         <FooterLarge navLinks={navLinks} paddingTop="30px" showBorder={false}/>
     </div>
@@ -375,6 +385,39 @@
         width: 100%;
         padding: 5px;
         gap: 5%;
+    }
+
+    .helpSection {
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 20px;
+        height: 200px;
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: auto;
+        margin-bottom: auto;
+        box-sizing: border-box;
+        justify-content: center;
+    }
+
+    .helpSection > h1 {
+        font-size: 30pt;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    .helpSection > p {
+        font-size: 18pt;
+        margin-top: 0px;
+    }
+
+    .downloadContainer {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        /* margin-top: 20px; */
     }
 
     .footerContainer {
