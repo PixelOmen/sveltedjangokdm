@@ -71,7 +71,7 @@ class KDMSession:
     
     def gen_kdm_path(self) -> str:
         stem = self.gen_kdm_name()[:100]
-        self.kdm_path = str(Path(self.outputDir) / f"{stem}_{str(uuid4())[:6]}.xml")
+        self.kdm_path = str(Path(self.outputDir) / f"{stem}_{str(uuid4())[:10]}.xml")
         return self.kdm_path
 
     def _cli_dates(self) -> tuple[str, str]:
