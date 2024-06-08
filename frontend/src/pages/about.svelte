@@ -150,10 +150,9 @@
         margin-right: auto;
         margin-top: 0px;
         margin-bottom: 50px;
-        padding: 0px 50px;
+        padding: 0px 100px;
         max-width: 1800px;
         align-items: center;
-        /* text-align: center; */
     }
 
     p {
