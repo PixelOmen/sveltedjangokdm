@@ -11,6 +11,7 @@ It allows users to generate and download fake Key Delivery Messages (KDMs) for D
 - Svelte (TypeScript)
 - PostgreSQL
 - Docker
+- WhiteNoise
 
 ### URL:
 Coming Soon
