@@ -80,12 +80,19 @@
                         </li>
                         <li>
                             <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
+                            Django REST Framework (DRF) - A powerful and flexible toolkit for building Web APIs in Django
+                        </li>
+                        <li>
+                            <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
                             PostgreSQL - A robust, open-source relational database system
                         </li>
                         <li>
                             <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
                             Docker - A platform for developing, shipping, and running applications in containers
-
+                        </li>
+                        <li>
+                            <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
+                            WhiteNoise - A middleware for serving static files in Django and other Python web applications
                         </li>
                         <li>
                             <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
@@ -131,7 +138,7 @@
         flex-direction: column;
         min-height: 100vh;
     }
-    
+        
     .heroContainer {
         margin-left: auto;
         margin-right: auto;
@@ -146,7 +153,7 @@
         padding: 0px 50px;
         max-width: 1800px;
         align-items: center;
-        text-align: center;
+        /* text-align: center; */
     }
 
     p {
@@ -159,10 +166,11 @@
     }
 
     .techlist {
-        /* border: 1px solid red; */
         text-align: left;
-        padding-left: 100px;
-        /* max-width: 300px; */
+    }
+        
+    .techlist > li {
+        font-size: 16pt;            
     }
 
     .linkedin-img {
