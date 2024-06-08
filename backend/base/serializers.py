@@ -30,3 +30,15 @@ class DKDMSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.DKDM
         fields = '__all__'
+
+class KDMSerializer(serializers.ModelSerializer):
+    file = serializers.FileField()
+
+    class Meta:
+        model = models.KDM
+        fields = '__all__'
+
+class JobSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Job
+        fields = '__all__'

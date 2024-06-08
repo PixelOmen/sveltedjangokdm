@@ -1,4 +1,5 @@
 import os
+from uuid import uuid4
 from pathlib import Path
 from datetime import datetime
 from dataclasses import dataclass
@@ -6,7 +7,7 @@ from dataclasses import dataclass
 from dotenv import load_dotenv
 load_dotenv()
 
-HTML_DATE_FORMAT = "%Y-%m-%dT%H:%M"
+HTML_DATE_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 HUMAN_DATE_FORMAT = "%m/%d/%Y %H:%M"
 CLI_BIN = os.getenv("KDM_CLI_BIN")
 
@@ -24,14 +25,14 @@ class KDMSession:
     error: str = ''
     human_start: str = ''
     human_end: str = ''
+    kdm_name: str = ''
+    kdm_path: str = ''
 
     def __post_init__(self):
-        if self.human_start:
-            self.html_start = self.human_start
-            self.human_start = self._html_to_human_date(self.human_start)
-        if self.human_end:
-            self.html_end = self.human_end
-            self.human_end = self._html_to_human_date(self.human_end)    
+        if self.html_start:
+            self.human_start = self._html_to_human_date(self.html_start)
+        if self.html_end:
+            self.human_end = self._html_to_human_date(self.html_end)
 
     def as_dict(self) -> dict:
         session_dict = {k:v for k,v in self.__dict__.items() if k != "config"}
@@ -55,14 +56,23 @@ class KDMSession:
 
     def cli_cmd(self) -> str:
         # r' -C "CERT.pem" -K "outputname" -o "OUTPUTDIR" -f "2024-03-21T17:41:00-07:00" -t "2024-03-21T19:41:00-07:00" "DKDM.xml"'
-        outputname = f"KDM_{Path(self.dkdm).stem}_{Path(self.cert).stem}"
-
         clibin = f'"{CLI_BIN}"'
         start, end = self._cli_dates()
         cert = f'"{self.cert}"'
         dkdm = f'"{self.dkdm}"'
         outputdir = f'"{self.outputDir}"'
-        return f"{clibin} -C {cert} -K {outputname} -o {outputdir} -f {start} -t {end} {dkdm}"
+        self.kdm_name = self.gen_kdm_name()
+        self.kdm_path = self.gen_kdm_path()
+        return f"{clibin} -C {cert} -K {self.kdm_name} -o {outputdir} -f {start} -t {end} {dkdm}"
+    
+    def gen_kdm_name(self) -> str:
+        self.kdm_name = f"KDM_{Path(self.dkdm).stem[:20]}-{Path(self.cert).stem[:20]}"
+        return self.kdm_name
+    
+    def gen_kdm_path(self) -> str:
+        stem = self.gen_kdm_name()[:100]
+        self.kdm_path = str(Path(self.outputDir) / f"{stem}_{str(uuid4())[:6]}.xml")
+        return self.kdm_path
 
     def _cli_dates(self) -> tuple[str, str]:
         tz_prefix = self.timezone[0]
@@ -88,6 +98,7 @@ class KDMSession:
         return True
     
     def _validate_output_dir(self) -> bool:
+        Path(self.outputDir).mkdir(parents=True, exist_ok=True)
         if not Path(self.outputDir).is_dir():
             self.set_error(f"Not a valid directory: {self.outputDir}")
             return False

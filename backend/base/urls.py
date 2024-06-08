@@ -6,8 +6,8 @@ from django.views.static import serve
 from . import views
 
 urlpatterns = [
-    path('api/public_leaf', views.ServePublicLeafView.as_view(), name='public_leaf'),
-    path('api/sample_files', views.ServeSampleFilesView.as_view(), name='sample_files'),
+    path('api/public_leaf', views.ServePublicLeafFile.as_view(), name='public_leaf'),
+    path('api/sample_files', views.ServeSampleFiles.as_view(), name='sample_files'),
     
     path('api/login', views.LoginToken.as_view(), name='login'),
     path('api/logout', views.LogoutToken.as_view(), name='logout'),
@@ -22,6 +22,9 @@ urlpatterns = [
 
     path('api/certs/<int:pk>', views.CertDetail.as_view(), name='cert_detail'),
     path('api/dkdms/<int:pk>', views.DKDMDetail.as_view(), name='dkdm_detail'),
+    path('api/kdm/<str:job_id>', views.ServeKDMFile.as_view(), name='kdm_file'),
+
+    path('api/submit_job', views.SubmitJob.as_view(), name='submit_job'),
 
     path('', views.SvelteAppView.as_view(), name='svelte_app'),
     path('kdm', views.SvelteAppView.as_view(), name='svelte_app'),

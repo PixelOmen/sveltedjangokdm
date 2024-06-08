@@ -1,9 +1,12 @@
 import os
 import subprocess as sub
-from typing import Any
 from datetime import datetime
+from typing import Any, TYPE_CHECKING
 
 from .kdmsession import KDMSession, HUMAN_DATE_FORMAT
+
+if TYPE_CHECKING:
+    from ...models import Job
 
 # --- fronend payload
 # {
@@ -15,17 +18,21 @@ from .kdmsession import KDMSession, HUMAN_DATE_FORMAT
 #     "outputDir": "mnt/my/output/dir",
 # }
 
-
 def process_request(userdata: Any, jobid: str) -> KDMSession:
     if not isinstance(userdata, dict):
         return _bad_request(jobid)
     session = _create_sessions(userdata, jobid)
     session.validate()
     if session.status == "ok":
-        _start_subprocess(session)
+        _start_subprocess(session, fake_kdm=True)
     return session
 
-def _start_subprocess(kdmsession: KDMSession) -> None:
+def _start_subprocess(kdmsession: KDMSession, fake_kdm: bool = False) -> None:
+    if fake_kdm:
+        kdmsession.cli_cmd()
+        with open(kdmsession.kdm_path, 'w') as f:
+            f.write("NOT A REAL KDM")
+        return
     cmd = kdmsession.cli_cmd()
     process = sub.Popen(cmd, stdout=sub.PIPE, stderr=sub.PIPE)
     _, stderr = process.communicate()

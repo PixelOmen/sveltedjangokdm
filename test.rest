@@ -1,6 +1,6 @@
 POST http://127.0.0.1:8000/api/test_post
 Content-Type: application/json
-Authorization: Token 1229950b037e0b4180f6658ec6451c9be91b81d4
+Authorization: Token 0aa7471416aa0253e63ede9ef6c9ff3ac786c3a9
 
 {
     "username": "admin",
@@ -14,14 +14,29 @@ Content-Type: application/json
 
 {
     "username": "eacosta",
-    "password": "mypassword"
+    "password": "pass123"
+}
+
+###
+
+POST http://127.0.0.1:8000/api/submit_job
+Content-Type: application/json
+Authorization: Token 0aa7471416aa0253e63ede9ef6c9ff3ac786c3a9
+
+{
+    "cert": 5,
+    "dkdm": 5,
+    "user": 1,
+    "startDate": "2024-01-01T00:00:00",
+    "endDate": "2024-01-02T12:00:00",
+    "timezone": "-11"
 }
 
 ###
 
 POST http://127.0.0.1:8000/api/logout
 Content-Type: application/json
-Authorization: Token 5df5ced5b60c5ec90b8dff408d4c7f0df23d1d0e
+Authorization: Token 0aa7471416aa0253e63ede9ef6c9ff3ac786c3a9
 
 {}
 

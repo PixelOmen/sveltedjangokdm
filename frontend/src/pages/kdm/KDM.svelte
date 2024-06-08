@@ -47,16 +47,16 @@
     let timezoneComp: SvelteComponent;
 
 
+
     onMount(() => {
-        getRequest('/api/get_user_certs').then(res => {
+        getRecords('/api/get_user_certs').then(res => {
             certData = res;
         });
 
-        getRequest('/api/get_user_dkdms').then(res => {
+        getRecords('/api/get_user_dkdms').then(res => {
             dkdmData = res;
         });
     });
-
 
 
     function showError(e: string): void {
@@ -67,6 +67,7 @@
     function closeError() {
         errorModal.hide();
     }
+
 
     async function failedAuthNavigate() {
         let res = await validateToken(SERVER_IP);
@@ -84,7 +85,8 @@
         window.open(`${SERVER_IP}/api/sample_files`, '_blank');
     }
 
-    async function getRequest(endpoint: string): Promise<any> {
+
+    async function getRecords(endpoint: string): Promise<any> {
         failedAuthNavigate();
         try{
             let res = await fetch(`${SERVER_IP}${endpoint}`, {
@@ -170,7 +172,7 @@
     async function deleteCert(e: CustomEvent) {
         let endpoint = `/api/certs/${e.detail.data.id}`;
         await deleteRequest(endpoint);
-        getRequest('/api/get_user_certs').then(res => {
+        getRecords('/api/get_user_certs').then(res => {
             certData = res;
         });
     }
@@ -178,7 +180,7 @@
     async function deleteDKDM(e: CustomEvent) {
         let endpoint = `/api/dkdms/${e.detail.data.id}`;
         await deleteRequest(endpoint);
-        getRequest('/api/get_user_dkdms').then(res => {
+        getRecords('/api/get_user_dkdms').then(res => {
             dkdmData = res;
         });
     }
@@ -186,7 +188,7 @@
     async function uploadCert(e: CustomEvent) {
         if (!e.detail.file) return;
         await uploadFile(e.detail.file, '/api/add_user_cert');
-        getRequest('/api/get_user_certs').then(res => {
+        getRecords('/api/get_user_certs').then(res => {
             certData = res;
         });
     }
@@ -194,13 +196,86 @@
     async function uploadDKDM(e: CustomEvent) {
         if (!e.detail.file) return;
         await uploadFile(e.detail.file, '/api/add_user_dkdm');
-        getRequest('/api/get_user_dkdms').then(res => {
+        getRecords('/api/get_user_dkdms').then(res => {
             dkdmData = res;
         });
     }
 
+    async function submitRequest(data: any):
+            Promise<{'kdm_url': string, "display_name": string} | void> {
+
+        failedAuthNavigate();
+        try {
+            let res = await fetch(`${SERVER_IP}/api/submit_job`, {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${get_token()}`
+                }
+            });
+            
+            if (res.ok) {
+                let resData = await res.json();
+                return {
+                    'kdm_url': resData.kdm_url,
+                    'display_name': resData.display_name
+                };
+            } else {
+                try {
+                    let resData = await res.json();
+                    if (resData.detail) {
+                        showError(`${resData.detail}`);
+                    } else {
+                        showError(`Failed to submit KDM: ${res.status}`);
+                    }
+                } catch (e) {
+                    showError(`Failed to submit KDM: ${e}`);
+                }
+            }
+        } catch (e) {
+            showError(`Failed to submit KDM: ${e}`);
+        }
+    }
+
+    async function getKDM(endpoint: string, file_name: string): Promise<void> {
+        try {
+            const res = await fetch(`${SERVER_IP}${endpoint}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Token ${get_token()}`
+                }
+            });
+            if (!res.ok) {
+                showError(`Failed to get KDM: ${res.status}`);
+                return;
+            }
+            const blob = await res.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = file_name;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        } catch (e) {
+            showError(`Failed to get KDM: ${e}`);
+        }
+    }
+
     async function submit() {
-        console.log(selectedCertValue);
+        let test = {
+            "cert": 5,
+            "dkdm": 5,
+            "user": 1,
+            "startDate": "2024-01-01T00:00:00",
+            "endDate": "2024-01-02T12:00:00",
+            "timezone": "-11"
+        }
+        let result = await submitRequest(test);
+        console.log(result);
+        if (!result) return;
+        getKDM(result.kdm_url, result.display_name);
         // startDateComp.clearError();
         // endDateComp.clearError();
         // selectedCertElem.clearError();

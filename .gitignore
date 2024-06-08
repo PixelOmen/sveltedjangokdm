@@ -32,6 +32,7 @@ dist-ssr
 
 **/media/certs/
 **/media/dkdms/
+**/media/output/
 **/staticfiles/admin/
 **/staticfiles/rest_framework/
 temp.py
