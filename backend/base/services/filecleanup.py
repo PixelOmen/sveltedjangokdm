@@ -1,12 +1,18 @@
 import time
 from pathlib import Path
 from threading import Thread
+from typing import TYPE_CHECKING
 
-def _work_thread(userdir: Path, delay: int):
+if TYPE_CHECKING:
+    from ..models import KDM
+
+
+# This module should be replaced with Celery tasks in a production environment
+
+def _work_thread(kdm: "KDM", delay: int):
     time.sleep(delay)
-    userdir.unlink(missing_ok=True)
+    kdm.file.delete(False)
 
-def delete_after_delay(file_path: Path | str, delay: int = 30) -> None:
-    file_path = Path(file_path)
-    Thread(target=_work_thread, args=(file_path, delay)).start()
+def delete_after_delay(kdm: "KDM", delay: int = 30) -> None:
+    Thread(target=_work_thread, args=(kdm, delay)).start()
 

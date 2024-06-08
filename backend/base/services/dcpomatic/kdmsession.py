@@ -66,7 +66,7 @@ class KDMSession:
         return f"{clibin} -C {cert} -K {self.kdm_name} -o {outputdir} -f {start} -t {end} {dkdm}"
     
     def gen_kdm_name(self) -> str:
-        self.kdm_name = f"KDM_{Path(self.dkdm).stem[:20]}-{Path(self.cert).stem[:20]}"
+        self.kdm_name = f"KDM_{Path(self.dkdm).stem[:40]}__{Path(self.cert).stem[:40]}"
         return self.kdm_name
     
     def gen_kdm_path(self) -> str:

@@ -93,7 +93,6 @@ class AddDKDM(APIView):
 
     def post(self, request):
         file_name = request.data['file'].name
-        print(type(request.data['file']), flush=True)
         exists = models.DKDM.objects.filter(user=request.user.id, display_name=file_name).exists()
         if exists:
             return Response(
@@ -212,7 +211,7 @@ class SubmitJob(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [SessionAuthentication, TokenAuthentication]
 
-    def _set_job_error(self, job: models.Job, status: str, error: str):
+    def _save_job_error(self, job: models.Job, status: str, error: str):
         job.status = status
         job.error = error
         job.completed_at = timezone.now()
@@ -220,6 +219,7 @@ class SubmitJob(APIView):
 
     def post(self, request):
         request.data['outputDir'] = str(Path(settings.MEDIA_ROOT) / 'output' / str(request.user.id))
+        request.data['user'] = request.user.id
         serializer = serializers.JobSerializer(data=request.data)
         if not serializer.is_valid():
             return Response(
@@ -236,27 +236,17 @@ class SubmitJob(APIView):
         try:
             kdmresponse = services.dcpomatic.process_request(data, str(jobid))
         except Exception as e:
-            self._set_job_error(jobinstance, 'error', str(e))
+            self._save_job_error(jobinstance, 'error', str(e))
             return Response(
                 {'detail': f'Job failed: {e}'},
                  status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
         
-        services.filecleanup.delete_after_delay(kdmresponse.kdm_path, 30)
         if kdmresponse.status == 'ok':
-            data = {
-                'file': File(open(kdmresponse.kdm_path, 'rb'), name=kdmresponse.kdm_name),
-                'display_name': kdmresponse.kdm_name,
-                'user': request.user.id
-            }
-            kdmserializer = serializers.KDMSerializer(data=data)
-            if not kdmserializer.is_valid():
-                self._set_job_error(jobinstance, 'error', serializers.format_errors(kdmserializer))
-                return Response(
-                    {'detail': f'Job failed: {serializers.format_errors(kdmserializer)}'},
-                    status=status.HTTP_500_INTERNAL_SERVER_ERROR
-                )
-            kdm: models.KDM = kdmserializer.save() #type: ignore
+            kdm = models.KDM.objects.create(user=request.user, display_name=kdmresponse.kdm_name)
+            kdm.file.name = os.path.relpath(kdmresponse.kdm_path, settings.MEDIA_ROOT)
+            kdm.save()
+            services.filecleanup.delete_after_delay(kdm, 30)
             jobinstance.status = 'completed'
             jobinstance.completed_at = timezone.now()
             jobinstance.kdm = kdm
@@ -272,7 +262,6 @@ class SubmitJob(APIView):
                 status=status.HTTP_201_CREATED
             )
         else:
-
             jobinstance.status = 'error'
             jobinstance.error = kdmresponse.error
             jobinstance.completed_at = timezone.now()

@@ -264,65 +264,62 @@
     }
 
     async function submit() {
-        let test = {
-            "cert": 5,
-            "dkdm": 5,
-            "user": 1,
-            "startDate": "2024-01-01T00:00:00",
-            "endDate": "2024-01-02T12:00:00",
-            "timezone": "-11"
+        startDateComp.clearError();
+        endDateComp.clearError();
+        selectedCertElem.clearError();
+        selectedDKDMElem.clearError();
+
+        if (!selectedCertValue) {
+            selectedCertElem.setError();
         }
-        let result = await submitRequest(test);
-        console.log(result);
-        if (!result) return;
-        getKDM(result.kdm_url, result.display_name);
-        // startDateComp.clearError();
-        // endDateComp.clearError();
-        // selectedCertElem.clearError();
-        // selectedDKDMElem.clearError();
 
-        // if (!selectedCertValue) {
-        //     selectedCertElem.setError();
-        // }
+        if (!selectedDKDMValue) {
+            selectedDKDMElem.setError();
+        }        
 
-        // if (!selectedDKDMValue) {
-        //     selectedDKDMElem.setError();
-        // }        
+        let start = startDateComp.getValue();
+        if (!start) {
+            startDateComp.setError();
+        }
 
-        // let start = startDateComp.getValue();
-        // if (!start) {
-        //     startDateComp.setError();
-        // }
+        let end = endDateComp.getValue();
+        if (!end) {
+            endDateComp.setError();
+        }
 
-        // let end = endDateComp.getValue();
-        // if (!end) {
-        //     endDateComp.setError();
-        // }
+        if (!(
+            selectedCertValue &&
+            selectedDKDMValue &&
+            start && end
+        )) {
+            return;
+        }
 
-        // if (!(
-        //     selectedCertValue &&
-        //     selectedDKDMValue &&
-        //     start && end
-        // )) {
-        //     return;
-        // }
         
-        // let tz = timezoneComp.getValue();
-
-        // let data = {
-        //     "cert": selectedCertValue,
-        //     "dkdm": selectedDKDMValue.display_name,
-        //     "startDate": start,
-        //     "endDate": end,
-        //     "timezone": tz,
+        let tz = timezoneComp.getValue();
+        
+        let data = {
+            "cert": selectedCertValue.id,
+            "dkdm": selectedDKDMValue.id,
+            "startDate": start,
+            "endDate": end,
+            "timezone": tz,
+        }
+            
+        // let test = {
+        //     "cert": 5,
+        //     "dkdm": 5,
+        //     "user": 1,
+        //     "startDate": "2024-01-01T00:00:00",
+        //     "endDate": "2024-01-02T12:00:00",
+        //     "timezone": "-11"
         // }
 
         // showLoading = true;
-        // coms.submitJSON('/api/kdm/submit', data).then(res => {
-        //     console.log(res.status);
-        //     // updateHistory();
-        //     showLoading = false;
-        // });
+        let result = await submitRequest(data);
+        if (!result) return;
+        getKDM(result.kdm_url, result.display_name);
+        // showLoading = false;
     }
 </script>
 

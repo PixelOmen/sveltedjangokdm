@@ -35,9 +35,16 @@ class DKDM(models.Model):
             self.display_name = self.file.name
         super(DKDM, self).save(*args, **kwargs)
 
+
+
+
 class KDM(models.Model):
+    @staticmethod
+    def dynamic_upload_to(instance, filename):
+        return f'output/{instance.user.id}/{filename}.xml'
+    
     id = models.AutoField(primary_key=True)
-    file = models.FileField(upload_to='kdms/')
+    file = models.FileField(upload_to=dynamic_upload_to)
     display_name = models.CharField(max_length=512, blank=True, null=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
