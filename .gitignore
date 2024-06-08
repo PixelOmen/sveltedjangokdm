@@ -36,3 +36,4 @@ dist-ssr
 **/staticfiles/admin/
 **/staticfiles/rest_framework/
 temp.py
+test.rest
