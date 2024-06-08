@@ -37,16 +37,14 @@ class DKDM(models.Model):
 
 
 
+def _dynamic_upload_to(instance, filename):
+    return f'output/{instance.user.id}/{filename}.xml'
 
-class KDM(models.Model):
-    @staticmethod
-    def dynamic_upload_to(instance, filename):
-        return f'output/{instance.user.id}/{filename}.xml'
-    
+class KDM(models.Model):    
     id = models.AutoField(primary_key=True)
-    file = models.FileField(upload_to=dynamic_upload_to)
+    file = models.FileField(upload_to=_dynamic_upload_to, blank=True, null=True)
     display_name = models.CharField(max_length=512, blank=True, null=True)
-    uploaded_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):

@@ -12,6 +12,8 @@ if TYPE_CHECKING:
 def _work_thread(kdm: "KDM", delay: int):
     time.sleep(delay)
     kdm.file.delete(False)
+    kdm.file = None #type: ignore
+    kdm.save()
 
 def delete_after_delay(kdm: "KDM", delay: int = 30) -> None:
     Thread(target=_work_thread, args=(kdm, delay)).start()
