@@ -166,6 +166,7 @@
 
     .techlist {
         text-align: left;
+        min-width: 1100px;
     }
         
     .techlist > li {
