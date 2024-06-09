@@ -22,6 +22,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 
 ALLOWED_HOSTS = [
+    '165.232.48.56',
     'localhost',
     '127.0.0.1',
     'kdmgen.com',
@@ -146,9 +147,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CSRF_TRUSTED_ORIGINS = [
 CSRF_TRUSTED_ORIGINS = [
+    'https://kdmgen.com',
+    'https://165.232.48.56',
     'http://localhost:5173',
 ]
 CORS_ALLOWED_ORIGINS = [
+    'https://kdmgen.com',
+    'https://165.232.48.56',
     'http://localhost:8000',
     'http://localhost:3000',
     'http://localhost:5173',
