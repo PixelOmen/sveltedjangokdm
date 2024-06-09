@@ -30,6 +30,7 @@ dist-ssr
 *.sln
 *.sw?
 
+# Project specific
 **/media/certs/
 **/media/dkdms/
 **/media/output/
@@ -37,3 +38,6 @@ dist-ssr
 **/staticfiles/rest_framework/
 temp.py
 test.rest
+*.pem
+*.key
+*.crt

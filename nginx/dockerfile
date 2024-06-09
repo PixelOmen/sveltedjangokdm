@@ -1,2 +1,4 @@
 FROM nginx:alpine
+COPY private.key.pem /etc/nginx/private.key.pem
+COPY ssl_certificate.crt /etc/nginx/ssl_certificate.crt
 COPY nginx.conf /etc/nginx/nginx.conf

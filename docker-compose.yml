@@ -42,7 +42,9 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
   nginx:
-    build: ./nginx
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
     restart: always
     ports:
       - "8080:80"
