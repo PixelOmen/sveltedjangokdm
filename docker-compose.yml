@@ -10,15 +10,14 @@ services:
     volumes:
       - postgres_kdm_prod_volume:/var/lib/postgresql/data:delegated
     ports:
-      - ${DB_HOST_PORT}:${POSTGRES_PORT}
+      - ${DB_HOST_PORT}:5432
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+
   web:
-    build:
-      context: .
-      dockerfile: dockerfile
+    build: ./backend
     command: >
       sh -c "
       python3 manage.py migrate &&
@@ -29,6 +28,24 @@ services:
     depends_on:
       - postgres_db
     environment:
+      - PROJECT_NAME=${PROJECT_NAME}
       - DJANGO_SETTINGS_MODULE=${PROJECT_NAME}.settings
-      - SECRET_KEY=${SECRET_KEY}
       - KDM_CLI_BIN=${KDM_CLI_BIN}
+      - SECRET_KEY=${SECRET_KEY}
+      - DB_HOST=${DB_HOST}
+      - DB_HOST_PORT=${DB_HOST_PORT}
+      - SECURE_SSL_REDIRECT=${SECURE_SSL_REDIRECT}
+      - SESSION_COOKIE_SECURE=${SESSION_COOKIE_SECURE}
+      - CSRF_COOKIE_SECURE=${CSRF_COOKIE_SECURE}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+
+  nginx:
+    build: ./nginx
+    restart: always
+    ports:
+      - "8080:80"
+      - "443:443"
+    depends_on:
+      - web
