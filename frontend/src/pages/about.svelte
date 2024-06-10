@@ -43,86 +43,116 @@
 <main>
     <HeroSection navLinks={navLinks} paddingTop="120px" paddingBottom="80px">
         <div class="heroContainer">
-           <section class="mainSections">
-                <div class="infoText-Center">
-                    <h1>About KDM-GEN</h1>
-                    <p>
-                        Welcome to KDM-GEN, a fictional web application built with
-                        the Django framework. This site is not a real product, but rather a demonstration
-                        of a full web stack.
-                    </p>
-                    <h2>Purpose and Features</h2>
-                    <p>
-                        This project aims to demonstrate seamless user data management
-                        while providing a simple and intuitive user experience. The application
-                        allows users to generate and download fake Key Delivery Messages (KDMs) for
-                        Digital Cinema Packages (DCPs). The KDMs are generated based on the
-                        user's selection of certificates and DKDMs, which they themselves can
-                        upload to the application.
-                    </p>
-                    <h2>Technologies</h2>
-                    <ul class="techlist">
-                        <li>
-                            <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
-                            Python - A versatile and widely-used programming language
-                        </li>
-                        <li>
-                            <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
-                            TypeScript - A statically typed superset of JavaScript, enhancing code quality
-                        </li>
-                        <li>
-                            <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
-                            Svelte - A modern, compiler-based JavaScript framework
-                        </li>
-                        <li>
-                            <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
-                            Django - A powerful Python web framework
-                        </li>
-                        <li>
-                            <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
-                            Django REST Framework (DRF) - A powerful and flexible toolkit for building Web APIs in Django
-                        </li>
-                        <li>
-                            <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
-                            PostgreSQL - A robust, open-source relational database system
-                        </li>
-                        <li>
-                            <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
-                            Docker - A platform for developing, shipping, and running applications in containers
-                        </li>
-                        <li>
-                            <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
-                            WhiteNoise - A middleware for serving static files in Django and other Python web applications
-                        </li>
-                        <li>
-                            <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
-                            DigitalOcean - A cloud infrastructure provider offering scalable resources
-                        </li>
-                    </ul>    
-                    <br><br><br>
-    
-                    <h1>Connect With Me</h1>
+            <div class="infoText">
+                <h1>About KDM&#x2011;GEN</h1>
+                <p>
+                    Welcome to KDM-GEN, a fictional web application built with
+                    the Django framework. This site is not a real product, but rather a demonstration
+                    of a full web stack.
+                </p>
+                <h2>Purpose and Features</h2>
+                <p>
+                    This project aims to demonstrate seamless user data management
+                    while providing a simple and intuitive user experience. The application
+                    allows users to generate and download fake Key Delivery Messages (KDMs) for
+                    Digital Cinema Packages (DCPs). The KDMs are generated based on the
+                    user's selection of certificates and DKDMs, which they themselves can
+                    upload to the application.
+                </p>
+                <h2>Implements:</h2>
+                <ul class="techlist">
+                    <li>
+                        <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
+                        <span>
+                            <b>Python</b> - Versatile and widely-used programming language
+                        </span>
+                    </li>
+                    <li>
+                        <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
+                        <span>
+                            <b>TypeScript</b> - Statically typed superset of JavaScript, enhancing code quality
+                        </span>
+                    </li>
+                    <li>
+                        <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
+                        <span>
+                            <b>Responsive Design</b> - Ensuring the application looks great on all devices
+                        </span>
+                    </li>
+                    <li>
+                        <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
+                        <span>
+                            <b>Svelte</b> - Modern, compiler-based JavaScript framework
+                        </span>
+                    </li>
+                    <li>
+                        <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
+                        <span>
+                            <b>Django</b> - Powerful Python web framework
+                        </span>
+                    </li>
+                    <li>
+                        <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
+                        <span>
+                            <b>Django REST Framework</b> - Powerful and flexible toolkit for building Web APIs in Django
+                        </span>
+                    </li>
+                    <li>
+                        <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
+                        <span>
+                            <b>PostgreSQL</b> - Robust, open-source relational database system
+                        </span>
+                    </li>
+                    <li>
+                        <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
+                        <span>
+                            <b>Nginx</b> - High-performance web server and reverse proxy server
+                        </span>
+                    </li>
+                    <li>
+                        <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
+                        <span>
+                            <b>Docker</b> - Platform for developing, shipping, and running applications in containers
+                        </span>
+                    </li>
+                    <li>
+                        <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
+                        <span>
+                            <b>WhiteNoise</b> - Middleware for serving static files in Django and other Python web apps           
+                        </span>
+                    </li>
+                    <li>
+                        <img src={checkmark} alt="Checkmark" width="30" class="checkmark">
+                        <span>
+                            <b>DigitalOcean</b> - Cloud infrastructure provider offering scalable resources
+                        </span>
+                    </li>
+                </ul>    
+                <br><br><br>
+
+                <h1 style="transform: translateX(-2px)">Connect</h1>
+                <div class="connectContainer">
                     <ul>
                         <li>
-                            <img class="linkedin-img" src={emailIcon} alt="email-Icon" width="30px">
-                            <NavAnchor data={email_link} newTab={false}/>
+                            <img class="linkIcon" src={emailIcon} alt="Email Icon" width="30px">
+                            <NavAnchor data={email_link} newTab={false} fontSize="1.2em"/>
                         </li>
                         <li>
-                            <img class="linkedin-img" src={githubIcon} alt="github-Icon" width="30px">
-                            <NavAnchor data={github_link} newTab={true}/>
+                            <img class="linkIcon" src={githubIcon} alt="Github Icon" width="30px">
+                            <NavAnchor data={github_link} newTab={true} fontSize="1.2em"/>
                         </li>
                         <li>
-                            <img class="linkedin-img" src={linkedinIcon} alt="LinkedIn-Icon" width="30px">
-                            <NavAnchor data={linkin_link} newTab={true}/>
+                            <img class="linkIcon linkedInIcon" src={linkedinIcon} alt="LinkedIn Icon" width="30px">
+                            <NavAnchor data={linkin_link} newTab={true} fontSize="1.2em"/>
                         </li>
                     </ul>
                     <h2 style="margin-top: 30px">Source Code</h2>
-                    <img class="linkedin-img" src={githubIcon} alt="LinkedIn-Icon" width="30px">
-                    <span style="font-size: 18pt;">
-                        <NavAnchor data={sourcecode_link} newTab={true}/>
-                    </span>
+                    <div class='sourceCode'>
+                        <img class="linkIcon" src={githubIcon} alt="Github Icon" width="30px">
+                        <NavAnchor data={sourcecode_link} newTab={true} fontSize="1.2em"/>
+                    </div>
                 </div>
-            </section>
+            </div>
         </div>
     </HeroSection>
     <div class="footerContainer">
@@ -133,6 +163,37 @@
 
 
 <style>
+    @media (min-width: 1400px) {
+        .heroContainer {
+            /* border: 1px solid red; */
+            max-width: 1300px !important;
+        }
+    }
+
+    @media (max-width: 1188px) {
+        .techlist > li {
+            /* border: 1px solid red; */
+            margin-bottom: 20px !important;
+        }
+    }
+
+    @media (max-width: 700px) {
+        h1 {
+            font-size: 2.5em !important;
+        }
+
+        h2 {
+            font-size: 1.5em !important;
+        }
+        p {
+            font-size: 1.2em !important;
+        }
+
+        .techlist > li {
+            font-size: 1.2em !important;
+        }
+    }
+
     main {
         display: flex;
         flex-direction: column;
@@ -140,45 +201,15 @@
     }
         
     .heroContainer {
+        /* border: 1px solid blue; */
         margin-left: auto;
         margin-right: auto;
-        max-width: 1300px;
-    }
-    .mainSections {
-        display: flex;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 0px;
-        margin-bottom: 50px;
-        padding: 0px 100px;
-        max-width: 1800px;
-        align-items: center;
+        max-width: 90%;
+        overflow: hidden;
     }
 
-    p {
-        font-size: 18pt;
-        margin-top: 0px;
-    }
-
-    li {
-        font-size: 18pt;
-    }
-
-    .techlist {
-        text-align: left;
-        min-width: 1100px;
-    }
-        
-    .techlist > li {
-        font-size: 16pt;            
-    }
-
-    .linkedin-img {
-        transform: translateY(7px);
-        margin-right: 10px;
-    }
-    
     h1 {
+        word-break: keep-all;
         font-size: 4em;
         margin-top: 0px;
         margin-bottom: 0px;
@@ -188,9 +219,45 @@
         margin-bottom: 10px;
         margin-top: 60px;
     }
+        
+    p {
+        font-size: 1.5rem;
+        margin-top: 0px;
+    }
+    
+    .techlist > li {
+        display: flex;
+        margin-bottom: 5px;
+        font-size: 1.5em;
+    }
 
     .checkmark {
+        min-width: 30px !important;
+        align-self: flex-start;
+        margin-right: 5px;
+        transform: translateY(2px) translateX(-5px);
+    }
+
+    .connectContainer {
+        margin-left: 5px;
+    }
+
+    .linkIcon {
         transform: translateY(8px);
+        margin-right: 10px;
+    }
+
+    .linkedInIcon {
+        transform: translateY(9px);
+    }
+    
+    .sourceCode {
+        display: flex;
+        align-items: center;
+    }
+
+    .sourceCode > .linkIcon {
+        transform: translateY(0px);
     }
 
     .footerContainer {

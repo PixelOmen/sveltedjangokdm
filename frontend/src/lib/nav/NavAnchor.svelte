@@ -8,12 +8,13 @@
 <script lang='ts'>
     export let data: AnchorData;
     export let newTab = false;
+    export let fontSize = "1rem";
 
     $: atarget = newTab ? "_blank" : "_self";
 </script>
 
 
-<a href={data.url} target={atarget} class="link">
+<a href={data.url} target={atarget} class="link" style="font-size: {fontSize}">
     {data.displayName}
 </a>
 
@@ -33,7 +34,7 @@
         content: '';
         position: absolute;
         left: 50%;
-        bottom: -5px;
+        bottom: -0.1rem;
         background-color: #7acfde;
         height: 1px;
         width: 0;
