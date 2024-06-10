@@ -28,6 +28,12 @@
 </header>
 
 <style>
+
+    @media (max-width: 500px) {
+        .navUL {
+            gap: 10px !important; 
+        }
+    }
     .container {
         font-family: 'montserrat', sans-serif;
         display: flex;

@@ -31,6 +31,7 @@
         border-radius: 5px;
         color: rgb(218, 218, 218);
         font-family: inherit;
+        white-space: nowrap;
     }
     button:hover {
         filter: brightness(110%) !important;

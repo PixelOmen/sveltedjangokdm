@@ -56,29 +56,33 @@
         <div class="infoText-Left">
             <h1>Simplify Your KDM Generation</h1>
             <p>Fast, Secure, and Reliable Key Delivery Messages for Your Digital Cinema Packages.</p>
-            <ImportantBtn
-                on:click={() => navigate('/signup')}
-                content="Get Started"
-                padding="10px 20px"
-                margin="20px 0px"
-            />
-            <div style="display: inline; margin-left: 10px;">
-                <ImportantBtn
-                on:click={downloadLeaf}
-                content="Download Certificate"
-                padding="10px 20px"
-                margin="20px 0px"
-                />
+            <div class="greetingBtns">
+                <div class="btnContainer">
+                    <ImportantBtn
+                        on:click={() => navigate('/signup')}
+                        content="Get Started"
+                        padding="10px 20px"
+                        margin="0"
+                    />
+                </div>
+                <div class="btnContainer">
+                    <ImportantBtn
+                    on:click={downloadLeaf}
+                    content="Download Certificate"
+                    padding="10px 20px"
+                    margin="0"
+                    />
+                </div>
             </div>
         </div>
         <div class="infoImg">
-            <img src={home1} alt="Main Logo" width="500">
+            <img src={home1} alt="Decoration">
         </div>
     </section>
     <hr>
     <section class="mainSections">
         <div class="infoImg">
-            <img src={home2} alt="Main Logo" width="500">
+            <img src={home2} alt="Decoration">
         </div>
         <div class="infoText-Right">
                 <h2>Ease of Use</h2>
@@ -108,7 +112,7 @@
             <p>Download the KDM and distribute it as needed.</p>
         </div>
         <div class="infoImg">
-            <img src={home3} alt="Main Logo" width="550">
+            <img src={home3} alt="Decoration">
         </div>
     </section>
     <div class="footerContainer">
@@ -119,6 +123,47 @@
 
 
 <style>
+    @media (max-width: 1000px) {
+        .mainSections {
+            /* border: 1px solid yellow; */
+            flex-direction: column;
+        }
+
+        .infoText-Left {
+            /* border: 1px solid blue; */
+            padding-left: 5px;
+            align-self: flex-start;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        .infoText-Right {
+            /* border: 1px solid green; */
+            align-self: flex-start;
+            padding-left: 5px;
+            max-width: 100%;
+            overflow: hidden;
+            margin-left: 0px !important;
+        }
+
+        .infoImg {
+            align-self: flex-start;
+            width: 100% !important;
+        }
+
+        img {
+            min-width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .greetingBtns {
+            flex-direction: column;
+        }
+    }
+
     .mainSections {
         display: flex;
         margin-left: auto;
@@ -126,8 +171,27 @@
         margin-top: 0px;
         margin-bottom: 50px;
         padding: 0px 50px;
-        max-width: 1800px;
+        max-width: 1200px;
+        justify-content: space-between;
         align-items: center;
+        gap: 50px;
+    }
+
+    .greetingBtns {
+        /* border: 1px solid red; */
+        max-width: 100%;
+        display: flex;
+        gap: 20px;
+    }
+
+    
+    .infoImg {
+        border: 8px solid rgb(86, 127, 139);
+        border-radius: 15px;
+    }
+
+    img {
+        max-width: 500px;
     }
 
     .lastSection {
@@ -141,21 +205,6 @@
         box-sizing: border-box;
     }
 
-    .infoText-Left {
-        margin: auto;
-        margin-right: 30px;
-    }
-
-    .infoText-Right {
-        margin: auto;
-        margin-left: 150px;
-    }
-    .infoImg {
-        border: 8px solid rgb(86, 127, 139);
-        border-radius: 15px;
-        height: 100%;
-        margin: auto;
-    }
 
     img {
         border-radius: 5px;
@@ -163,14 +212,14 @@
     }
 
     p {
-        font-size: 20pt;
+        font-size: 1.5em;
         max-width: 700px;
         margin-top: 0px;
     }
     
     h1 {
         margin-top: 0px;
-        font-size: 3em;
+        font-size: 2.5em;
         margin-bottom: 20px;
     }
 
@@ -188,6 +237,4 @@
         padding-top: 30px;
         padding-bottom: 5px;
     }
-
 </style>
-  
