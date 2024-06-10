@@ -8,7 +8,7 @@
 <script lang='ts'>
     export let data: AnchorData;
     export let newTab = false;
-    export let fontSize = "1rem";
+    export let fontSize = "1.2em";
 
     $: atarget = newTab ? "_blank" : "_self";
 </script>

@@ -135,21 +135,21 @@
                     <ul>
                         <li>
                             <img class="linkIcon" src={emailIcon} alt="Email Icon" width="30px">
-                            <NavAnchor data={email_link} newTab={false} fontSize="1.2em"/>
+                            <NavAnchor data={email_link} newTab={false} fontSize="1.1em"/>
                         </li>
                         <li>
                             <img class="linkIcon" src={githubIcon} alt="Github Icon" width="30px">
-                            <NavAnchor data={github_link} newTab={true} fontSize="1.2em"/>
+                            <NavAnchor data={github_link} newTab={true} fontSize="1.1em"/>
                         </li>
                         <li>
                             <img class="linkIcon linkedInIcon" src={linkedinIcon} alt="LinkedIn Icon" width="30px">
-                            <NavAnchor data={linkin_link} newTab={true} fontSize="1.2em"/>
+                            <NavAnchor data={linkin_link} newTab={true} fontSize="1.1em"/>
                         </li>
                     </ul>
                     <h2 style="margin-top: 30px">Source Code</h2>
                     <div class='sourceCode'>
                         <img class="linkIcon" src={githubIcon} alt="Github Icon" width="30px">
-                        <NavAnchor data={sourcecode_link} newTab={true} fontSize="1.2em"/>
+                        <NavAnchor data={sourcecode_link} newTab={true}/>
                     </div>
                 </div>
             </div>
@@ -191,6 +191,12 @@
 
         .techlist > li {
             font-size: 1.2em !important;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .sourceCode {
+            font-size: 0.9em !important;
         }
     }
 
@@ -252,6 +258,7 @@
     }
     
     .sourceCode {
+        font-size: 0.9em;
         display: flex;
         align-items: center;
     }
