@@ -1,0 +1,26 @@
+name: SSH to Droplet and Pull
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Deploy to Digital Ocean Droplet via SSH
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.DROPLET_IP }}
+        username: ${{ secrets.DROPLET_USERNAME }}
+        key: ${{ secrets.DROPLET_SSH_KEY }}
+        script: |
+          # Navigate to your app directory
+          cd /path/to/your/app/on/droplet
+          
+          # Pull the latest changes from the repository
+          git pull origin main
+
+          # Create the SSL certificate and key files
+          echo "${{ secrets.SSL_CERTIFICATE }}" > /root/djangokdm/github_repo/nginx/ssl_certificate.crt
+          echo "${{ secrets.NGINX_SSL_PRIVATE_KEY }}" > /root/djangokdm/github_repo/nginx/private.key.pem
