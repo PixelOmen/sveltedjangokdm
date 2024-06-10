@@ -13,8 +13,8 @@ export function submitJSON(url: string, data: object): Promise<any> {
     return fetch(url, payload);
 }
 
-export async function validateToken(server_ip: string): Promise<any>{
-    return fetch(`/api/test_token`, {
+export async function validateToken(serverip: string): Promise<any>{
+    return fetch(`${serverip}/api/test_token`, {
         method: 'GET',
         headers: {
             'Authorization': `Token ${get_token()}`

@@ -14,7 +14,11 @@
     let navLinks: any = [];
 
     async function isAuth() {
-        let res = await validateToken(SERVER_IP);
+        try {
+            var res = await validateToken(SERVER_IP);
+        } catch (e) {
+            return false;
+        }
         return res.ok;
     }
 

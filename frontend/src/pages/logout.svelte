@@ -6,11 +6,10 @@
 
     import { get_token, remove_token, isAuthenticated } from "../stores/auth";
 
-
     const SERVER_IP = import.meta.env.VITE_API_SERVER_IP;
 
     async function logout() {
-        const res = await fetch(`${SERVER_IP}/api/logout`, {
+        await fetch(`${SERVER_IP}/api/logout`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
