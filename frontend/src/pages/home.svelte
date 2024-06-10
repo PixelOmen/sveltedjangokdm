@@ -123,6 +123,11 @@
 
 
 <style>
+    @media (min-width: 1200px) {
+        .mainSections {
+            max-width: 50%;
+        }
+    }
     @media (max-width: 1000px) {
         .mainSections {
             /* border: 1px solid yellow; */

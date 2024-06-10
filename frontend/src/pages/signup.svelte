@@ -114,6 +114,15 @@
 
 
 <style>
+    @media (max-width: 1000px) {
+        .header {
+            margin-top: 20px !important;
+        }
+
+        .container {
+            width: 90% !important;
+        }
+    }
     .header {
         margin-top: 50px;
         text-align: center;
@@ -132,9 +141,10 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        width: 400px;
+        width: 500px;
         margin-left: auto;
         margin-right: auto;
+        box-sizing: border-box;
     }
 
     .flash {
