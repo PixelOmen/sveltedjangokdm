@@ -33,20 +33,22 @@
     </div>
 </footer>
 
-<style>    
+<style>
     .footerContainer {
+        max-width: 1300px;
         display: flex;
-        max-width: 1450px;
         padding-bottom: 20px;
         margin-left: auto;
         margin-right: auto;
-        justify-content: space-between;
         align-items: center;
+        gap: 30px;
     }
     
     .linksContainer {
         flex: 1;
         width: max-content;
+        white-space: nowrap;
+        margin-right: 20px;
     }
 
     .legalContainer {
