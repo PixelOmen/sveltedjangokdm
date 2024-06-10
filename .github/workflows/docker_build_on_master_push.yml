@@ -3,7 +3,7 @@ name: Docker Build on Master Push
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   deploy:
@@ -22,7 +22,7 @@ jobs:
           cd /path/to/your/app/on/droplet
           
           # Pull the latest changes from the repository
-          git pull origin main
+          git pull origin master
 
           # Create the SSL certificate and key files
           echo "${{ secrets.NGINX_SSL_CERTIFICATE }}" > /root/djangokdm/repo/sveltedjangokdm/nginx/ssl_certificate.crt
