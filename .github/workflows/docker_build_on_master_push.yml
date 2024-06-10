@@ -1,14 +1,16 @@
 name: SSH to Droplet and Pull
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Pull Repo Into Droplet
+    - name: Deploy to Digital Ocean Droplet via SSH
       uses: appleboy/ssh-action@v1.0.3
       with:
         host: ${{ secrets.DROPLET_IP }}
