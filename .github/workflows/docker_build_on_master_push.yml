@@ -27,6 +27,9 @@ jobs:
           echo "${{ secrets.NGINX_SSL_CERTIFICATE }}" > /root/djangokdm/repo/sveltedjangokdm/nginx/ssl_certificate.crt
           echo "${{ secrets.NGINX_SSL_PRIVATE_KEY }}" > /root/djangokdm/repo/sveltedjangokdm/nginx/private.key.pem
 
+          # Create the .env file
+          echo "${{ secrets.PRODUCTION_ENV }}" > /root/djangokdm/repo/sveltedjangokdm/.env
+
           # Restart/Rebuild the Docker containers
           docker compose down
           docker compose up --build -d
