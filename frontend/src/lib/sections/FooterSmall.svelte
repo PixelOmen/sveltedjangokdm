@@ -26,8 +26,11 @@
 </footer>
 
 <style>
-    hr {
-        margin-top: 0;
+    @media (max-width: 1000px) {
+        .footerContainer {
+            min-width: 80% !important;
+            max-width: 80% !important;
+        }
     }
 
     .footerContainer {
@@ -36,6 +39,11 @@
         padding-bottom: 20px;
         margin-left: auto;
         margin-right: auto;
+        box-sizing: border-box;
+    }
+
+    hr {
+        margin-top: 0;
     }
 
     nav {

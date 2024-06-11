@@ -153,7 +153,6 @@
 
         .infoImg {
             align-self: flex-start;
-            width: 100% !important;
         }
 
         img {
@@ -164,6 +163,19 @@
     }
 
     @media (max-width: 500px) {
+
+        h1 {
+            font-size: 2em !important;
+        }
+
+        h3 {
+            font-size: 1.3em !important;
+        }
+
+        p {
+            font-size: 1.2em !important;
+        }
+
         .greetingBtns {
             flex-direction: column;
         }
