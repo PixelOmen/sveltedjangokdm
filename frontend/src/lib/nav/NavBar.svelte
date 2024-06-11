@@ -9,6 +9,12 @@
     import NavAnchor from './NavAnchor.svelte';
     
     export let navLinks: NavLinks;
+    let sidebar: HTMLElement;
+
+    function toggleSidebar() {
+        if (!sidebar.style.display) sidebar.style.display = 'none';
+        sidebar.style.display = sidebar.style.display === 'none' ? 'flex' : 'none';
+    }
 </script>
 
 <header class="container">
@@ -24,16 +30,33 @@
                 <NavAnchor data={link}/>
             {/each}
         </ul>
+        <button class="hamburger" on:click={toggleSidebar}>
+            &#9776;
+        </button>
+        <div bind:this={sidebar} class="sidebar">
+            <button on:click={toggleSidebar} class="closeBtn">&#8617;</button>
+            <ul class='sidebarUL'>
+                {#each navLinks as link}
+                    <NavAnchor data={link}/>
+                {/each}
+            </ul>
+        </div>
     </nav>
 </header>
 
 <style>
-
-    @media (max-width: 500px) {
+    @media (max-width: 1000px) {
         .navUL {
-            gap: 10px !important; 
+            display: none !important;
         }
     }
+
+    @media (min-width: 1001px) {
+        .hamburger {
+            display: none !important;
+        }
+    }
+
     .container {
         font-family: 'montserrat', sans-serif;
         display: flex;
@@ -67,12 +90,52 @@
         gap: 30px;
     }
 
-    @media (max-width: 1200px) {
-        a > span {
-            font-size: 20pt;
-        }
-        ul {
-            gap: 5px;
-        }
+    .hamburger {
+        font-size: 40pt;
+        margin-right: 10px;
+        cursor: pointer;
+        background: none;
+        border: none;
     }
+
+    .hamburger:active {
+        outline: none;
+        border: none;
+    }
+
+    .sidebar {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: radial-gradient(circle, rgba(19, 75, 130, 1) 0%, rgba(9, 50, 90, 0.95) 100%);
+        width: max-content;
+        height: 100%;
+        z-index: 100;
+        padding: 0px 50px;
+    }
+
+    .closeBtn {
+        width: 100%;
+        align-self: flex-end;
+        font-size: 30pt;
+        margin-top: 30px;
+        padding-bottom: 0px;
+        background: none;
+        border: none;
+        /* border: 3px solid rgb(218, 128, 2); */
+        border-radius: 20%;
+        color: white;
+        cursor: pointer;
+    }
+
+    .sidebarUL {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-top: 40px;
+    }
+
 </style>
