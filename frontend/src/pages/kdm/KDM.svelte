@@ -23,29 +23,29 @@
     import Selected from "./Selected.svelte";
 
     const SERVER_IP = import.meta.env.VITE_API_SERVER_IP;
-
+    const maxUploadSize = 5242880;
+    const allowedCerts = ['.pem', '.crt', '.cer'];
+    const allowedDKDMs = ['.xml'];
     const navLinks = [
         {displayName: "Home", url: `/`},
         {displayName: "About", url: `/about`},
         {displayName: "Logout", url: `/logout`},
     ]
 
-    let certData: ListItemData[] = [];
-
-    let dkdmData: ListItemData[] = [];
-
     let showLoading = false;
 
+    let certData: ListItemData[] = [];
+    let dkdmData: ListItemData[] = [];
+    
     let errorModal: SvelteComponent;
     let selectedCertElem: SvelteComponent;
     let selectedDKDMElem: SvelteComponent;
     let selectedCertValue: ListItemData | null = null; 
     let selectedDKDMValue: ListItemData | null = null;
-
+    
     let startDateComp: SvelteComponent;
     let endDateComp: SvelteComponent;
     let timezoneComp: SvelteComponent;
-
 
 
     onMount(() => {
@@ -59,6 +59,7 @@
     });
 
 
+
     function showError(e: string): void {
         errorModal.setError(e);
         errorModal.show();
@@ -69,12 +70,31 @@
     }
 
 
+
     async function failedAuthNavigate() {
         let res = await validateToken(SERVER_IP);
         if (!res.ok) {
             navigate('/login');
         }
     };
+
+    function validateFile(file: File, allowed: string[]): boolean {
+        const ext = file.name.substring(file.name.lastIndexOf('.'));
+
+        if (
+            !allowed.includes(ext) &&
+            !allowed.includes(ext.toLowerCase()) &&
+            !allowed.includes(ext.toUpperCase())
+        ){
+            showError(`Invalid file type. Allowed types are: ${allowed.join(', ')}`);
+            return false;
+        } else if (file.size > maxUploadSize) {
+            showError(`File size too large. Max size is ${maxUploadSize / 1048576}MB`);
+            return false;
+        }
+        return true;
+    }
+
 
 
     function downloadLeaf() {
@@ -84,6 +104,7 @@
     function downloadSamples() {
         window.open(`${SERVER_IP}/api/sample_files`, '_blank');
     }
+
 
 
     async function getRecords(endpoint: string): Promise<any> {
@@ -140,8 +161,9 @@
         }
     }
 
-    async function uploadFile(file: File, endpoint: string): Promise<void> {
+    async function uploadFile(file: File, endpoint: string, allowed: string[]): Promise<void> {
         failedAuthNavigate();
+        if (!validateFile(file, allowed)) return;
         let formData = new FormData();
         formData.append('file', file);
 
@@ -187,7 +209,7 @@
 
     async function uploadCert(e: CustomEvent) {
         if (!e.detail.file) return;
-        await uploadFile(e.detail.file, '/api/add_user_cert');
+        await uploadFile(e.detail.file, '/api/add_user_cert', allowedCerts);
         getRecords('/api/get_user_certs').then(res => {
             certData = res;
         });
@@ -195,7 +217,7 @@
 
     async function uploadDKDM(e: CustomEvent) {
         if (!e.detail.file) return;
-        await uploadFile(e.detail.file, '/api/add_user_dkdm');
+        await uploadFile(e.detail.file, '/api/add_user_dkdm', allowedDKDMs);
         getRecords('/api/get_user_dkdms').then(res => {
             dkdmData = res;
         });
@@ -344,7 +366,7 @@
                     searchPlaceholder="Search Certs"
                     fileIcon={CertificateIcon}
                     dirIcon={FolderIcon}
-                    filetypes=".pem,.crt,.cer"
+                    filetypes={allowedCerts.join(',')}
                 />
                 <Selected bind:this={selectedCertElem} selected={selectedCertValue}/>
             </div>
@@ -358,7 +380,7 @@
                     searchPlaceholder="Search CPLs"
                     fileIcon={CertificateIcon}
                     dirIcon={FolderIcon}
-                    filetypes=".xml"
+                    filetypes={allowedDKDMs.join(',')}
                 />
                 <Selected bind:this={selectedDKDMElem} selected={selectedDKDMValue}/>
             </div>
