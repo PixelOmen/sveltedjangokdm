@@ -47,6 +47,7 @@
 
 <style>
     .itemContainer {
+        min-height: 2.2em;
         display: flex;
         width: 100%;
         box-sizing: border-box;
@@ -69,7 +70,6 @@
         cursor: pointer;
         border-radius: 5px;
         background-color: #1a7c89;
-        /* font-weight: 900; */
     }
     .itemLabel {
         max-width: 100%;

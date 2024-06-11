@@ -138,5 +138,6 @@
         flex-direction: column;
         padding: 5px 5px;
         max-width: 100%;
+        overflow-y: auto
     }
 </style>
