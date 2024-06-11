@@ -333,8 +333,8 @@
     </div>
     <ErrorModal bind:this={errorModal} on:click={closeError}/>
     <HeroSection navLinks={navLinks} paddingTop="100px">
-        <div class="certSection">
-            <div style="width: 40%">
+        <div class="fileContainer">
+            <div class="searchBox">
                 <SearchList listData={certData}
                     on:fileAdded={uploadCert}
                     on:searchItemDeleted={deleteCert}
@@ -348,7 +348,7 @@
                 />
                 <Selected bind:this={selectedCertElem} selected={selectedCertValue}/>
             </div>
-            <div style="width: 40%">
+            <div class="searchBox cplSearchBox">
                 <SearchList listData={dkdmData}
                     on:fileAdded={uploadDKDM}
                     on:searchItemDeleted={deleteDKDM}
@@ -412,21 +412,84 @@
 </main>
 
 <style>
+    @media (max-width: 1000px) {
+        .fileContainer {
+            flex-direction: column;
+        }
+
+        .cplSearchBox {
+            margin-top: 30px !important;
+        }
+
+        .searchBox {
+            min-width: 100% !important;
+        }
+
+        .helpSection {
+            margin-top: 30px !important;
+            margin-bottom: 100px !important;
+        }
+    }
+
+    @media (max-width: 680px) {
+
+        .dateSection {
+            padding-top: 30px !important;
+            padding-bottom: 40px !important;
+        }
+        .dateContainer {
+            flex-direction: column;
+            gap: 30px !important;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .helpSection {
+            margin-top: 10px !important;
+            margin-bottom: 100px !important;
+        }
+        .helpSection > h1 {
+            font-size: 1.5em !important;
+        }
+
+        .helpSection > p {
+            font-size: 1em !important;
+        }
+
+        .downloadContainer {
+            flex-direction: column !important;
+            gap: 20px;
+        }
+
+    }
+
     main {
+        max-width: 100%;
         font-family: "Montserrat";
-        min-width: 900px;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
     }
 
-    .certSection {
+    .fileContainer {
+        /* border: 1px solid yellow; */
         display: flex;
-        justify-content: space-around;
-        gap: 20px;
+        justify-content: center;
+        gap: 30px;
         max-width: 80%;
         margin-left: auto;
         margin-right: auto;
+        margin-bottom: 30px;
+        overflow: hidden;
+    }
+
+    .searchBox {
+        min-width: 45%;
+        max-width: 45%;
+    }
+
+    .cplSearchBox {
+        margin-top: 0px;
     }
 
     .sectionContainer {
@@ -440,9 +503,12 @@
     }
 
     .dateSection {
+        /* border: 1px solid red; */
         padding: 20px 0px;
-        width: 100%;
+        max-width: 100%;
+        min-width: 100%;
         background: linear-gradient(310deg, #125a64 0%, #572360b9 99%);
+        box-sizing: border-box;
     }
     .dateContainer {
         display: flex;
@@ -473,7 +539,7 @@
         flex-direction: column;
         align-items: center;
         margin-top: auto;
-        margin-bottom: auto;
+        margin-bottom: 20px;
         box-sizing: border-box;
         justify-content: center;
     }

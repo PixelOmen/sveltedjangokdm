@@ -47,6 +47,11 @@
 
 
 <style>
+    @media (max-width: 1000px) {
+        .displayBox {
+            white-space: normal !important;
+        }
+    }
     div {
         position: relative;
     }
