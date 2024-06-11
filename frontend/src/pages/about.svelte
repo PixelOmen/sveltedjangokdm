@@ -17,13 +17,11 @@
     if (get(isAuthenticated)) {
         navLinks = navLinks.concat([
             {displayName: "Generate", url: `/kdm`},
-            {displayName: "About", url: `/about`},
             {displayName: "Logout", url: `/logout`},
         ]);
     } else {
         navLinks = navLinks.concat([
             {displayName: "Sign Up / Log In", url: `/login`},
-            {displayName: "About", url: `/about`},
         ]);
     }
 
