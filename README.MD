@@ -8,10 +8,11 @@ It allows users to generate and download fake Key Delivery Messages (KDMs) for D
 ### Built with:
 - Django
 - Django REST Framework
+- WhiteNoise
 - Svelte (TypeScript)
 - PostgreSQL
+- Nginx
 - Docker
-- WhiteNoise
 
 ### URL:
-Coming Soon
+[KDM-GEN](https://kdmgen.com/)
