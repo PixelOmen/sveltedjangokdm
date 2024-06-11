@@ -170,6 +170,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = str(BASE_DIR / 'media')
 
 # logging
+if not os.path.exists(os.path.join(BASE_DIR, 'logs')):
+    os.makedirs(os.path.join(BASE_DIR, 'logs'))
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
