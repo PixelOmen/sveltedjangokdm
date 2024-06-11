@@ -2,8 +2,6 @@ name: Docker Build on Master Push
 
 on:
   push:
-    branches:
-      - master
     tags:
       - 'v*'
 
