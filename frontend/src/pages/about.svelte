@@ -143,7 +143,7 @@
                         </li>
                         <li>
                             <img class="linkIcon linkedInIcon" src={linkedinIcon} alt="LinkedIn Icon" width="30px">
-                            <NavAnchor data={linkin_link} newTab={true} fontSize="1.1em"/>
+                            <NavAnchor data={linkin_link} newTab={true}/>
                         </li>
                     </ul>
                     <h2 style="margin-top: 30px">Source Code</h2>
@@ -165,14 +165,12 @@
 <style>
     @media (min-width: 1400px) {
         .heroContainer {
-            /* border: 1px solid red; */
             max-width: 1300px !important;
         }
     }
 
     @media (max-width: 1188px) {
         .techlist > li {
-            /* border: 1px solid red; */
             margin-bottom: 20px !important;
         }
     }
@@ -195,8 +193,14 @@
     }
 
     @media (max-width: 500px) {
-        .sourceCode {
-            font-size: 0.9em !important;
+        .connectContainer {
+            font-size: 0.8em !important;
+        }
+    }
+
+    @media (max-width: 410px) {
+        .connectContainer {
+            font-size: 0.7em !important;
         }
     }
 
@@ -258,7 +262,6 @@
     }
     
     .sourceCode {
-        font-size: 0.9em;
         display: flex;
         align-items: center;
     }

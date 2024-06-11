@@ -445,7 +445,7 @@
         }
 
         .helpSection {
-            margin-top: 10px !important;
+            margin-top: 30px !important;
             margin-bottom: 100px !important;
         }
         .helpSection > h1 {
@@ -454,13 +454,19 @@
 
         .helpSection > p {
             font-size: 1em !important;
+            margin-bottom: 30px !important;
         }
 
         .downloadContainer {
             flex-direction: column !important;
             gap: 20px;
         }
+    }
 
+    @media (max-width: 420px) {
+        .helpSection > p {
+            font-size: 0.7em !important;
+        }
     }
 
     main {
@@ -545,13 +551,13 @@
     }
 
     .helpSection > h1 {
-        font-size: 30pt;
+        font-size: 2em;
         margin-top: 0px;
         margin-bottom: 0px;
     }
 
     .helpSection > p {
-        font-size: 18pt;
+        font-size: 1.5em;
         margin-top: 0px;
     }
 
@@ -559,7 +565,6 @@
         display: flex;
         justify-content: center;
         gap: 30px;
-        /* margin-top: 20px; */
     }
 
     .footerContainer {

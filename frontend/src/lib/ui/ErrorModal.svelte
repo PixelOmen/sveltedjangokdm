@@ -38,6 +38,11 @@
 </div>
 
 <style>
+    @media (max-width: 550px) {
+        .container {
+            min-width: 80% !important;
+        }
+    }
     .container {
         position: fixed;
         top: 30%;
@@ -50,13 +55,13 @@
         min-width: 500px;
         max-width: 80%;
         z-index: 100;
-        background-color: #16323ae6;
+        background-color: #1f505dde;
         border-radius: 10px;
         filter: drop-shadow(5px 20px 10px rgba(0, 0, 0, 0.5));
     }
     @supports (backdrop-filter: blur(5px)) {
         .container {
-            background-color: #16323ab0;
+            background-color: #1f505dde;
             backdrop-filter: blur(5px);
         }
     }

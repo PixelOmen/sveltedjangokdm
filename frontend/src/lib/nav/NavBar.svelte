@@ -21,7 +21,7 @@
     <a href="/">
         <img src={logo} alt="Main Logo" width="40" height="40">
         <span>
-            KDM-GEN
+            KDM&#x2011;GEN
         </span>
     </a>
     <nav>
@@ -57,6 +57,12 @@
         }
     }
 
+    @media (max-width: 700px) {
+        a {
+            font-size: 0.8em !important;
+        }
+    }
+
     .container {
         font-family: 'montserrat', sans-serif;
         display: flex;
@@ -80,7 +86,7 @@
         outline: none;
         color: rgb(237, 237, 237);
         margin-left: 5px;
-        font-size: 25pt;
+        font-size: 2.5em;
         font-weight: 600;
     }
     .navUL {
@@ -91,7 +97,7 @@
     }
 
     .hamburger {
-        font-size: 40pt;
+        font-size: 3em;
         margin-right: 10px;
         cursor: pointer;
         background: none;
@@ -106,8 +112,7 @@
     .sidebar {
         display: none;
         flex-direction: column;
-        align-items: center;
-        position: absolute;
+        position: fixed;
         top: 0;
         right: 0;
         background: radial-gradient(circle, rgba(19, 75, 130, 1) 0%, rgba(9, 50, 90, 0.95) 100%);
@@ -120,7 +125,7 @@
     .closeBtn {
         width: 100%;
         align-self: flex-end;
-        font-size: 30pt;
+        font-size: 3em;
         margin-top: 30px;
         padding-bottom: 0px;
         background: none;
