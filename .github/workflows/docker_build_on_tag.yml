@@ -1,4 +1,4 @@
-name: Docker Build on Master Push
+name: Docker Build on Tag
 
 on:
   push:
