@@ -18,7 +18,5 @@ export function removeClickOutside(callback: UserCallback) {
     if (clickFunc) {
         window.removeEventListener('click', clickFunc);
         subscribers.delete(callback);
-    } else {
-        console.log("Didn't find func")
     }
 }

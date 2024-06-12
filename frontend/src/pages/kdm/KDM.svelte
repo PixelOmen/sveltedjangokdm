@@ -73,7 +73,7 @@
 
     async function failedAuthNavigate() {
         let res = await validateToken(SERVER_IP);
-        if (!res.ok) {
+        if (res === null || !res.ok) {
             navigate('/login');
         }
     };
@@ -116,7 +116,12 @@
                     'Authorization': `Token ${get_token()}`
                 }
             });
-            let data = await res.json();
+            try {
+                var data = await res.json();
+            } catch {
+                showError(`Failed to get data: Server did not respond with JSON`);
+                return;
+            }
             
             if (res.ok) {
                 let formattedData: any = [];
@@ -147,7 +152,12 @@
                     'Authorization': `Token ${get_token()}`
                 }
             });
-            let data = await res.json();
+            try {
+                var data = await res.json();
+            } catch (e) {
+                showError(`Failed to delete file: ${e}`);
+                return;
+            }
 
             if (!res.ok) {
                 if (data.detail) {
@@ -175,7 +185,13 @@
                     'Authorization': `Token ${get_token()}`
                 }
             });
-            let data = await res.json();
+
+            try {
+                var data = await res.json();
+            } catch (e) {
+                showError(`Failed to upload file: ${e}`);
+                return;
+            }
 
             if (!res.ok) {
                 if (data.detail) {

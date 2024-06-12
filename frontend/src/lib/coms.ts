@@ -14,10 +14,16 @@ export function submitJSON(url: string, data: object): Promise<any> {
 }
 
 export async function validateToken(serverip: string): Promise<any>{
-    return fetch(`${serverip}/api/test_token`, {
-        method: 'GET',
-        headers: {
-            'Authorization': `Token ${get_token()}`
-        }
-    });
+    try {
+        var res = await fetch(`${serverip}/api/test_token`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Token ${get_token()}`
+            }
+        });
+    } catch {
+        return null;
+    }
+
+    return res;
 };

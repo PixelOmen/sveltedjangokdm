@@ -19,6 +19,10 @@
         } catch (e) {
             return false;
         }
+
+        if (res === null) {
+            return false;
+        }
         return res.ok;
     }
 

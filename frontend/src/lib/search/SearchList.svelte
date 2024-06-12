@@ -19,7 +19,7 @@
     export let dirIcon = "";
     export let filetypes = "";
 
-    $: filteredData = listData.reverse();
+    $: filteredData = listData ? listData.reverse() : [];
 
     let searchInput: HTMLInputElement;
     $: {
