@@ -39,5 +39,6 @@ dist-ssr
 temp.py
 test.rest
 *.pem
+!public_leaf.pem
 *.key
 *.crt
