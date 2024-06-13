@@ -18,15 +18,11 @@ services:
 
   web:
     build: ./backend
-    command: >
-      sh -c "
-      python3 manage.py migrate &&
-      gunicorn ${PROJECT_NAME}.wsgi:application --bind 0.0.0.0:8000"
     restart: always
     volumes:
       - media_volume:/${PROJECT_NAME}/media:delegated
       - ./backend/entrypoint.sh:/usr/local/bin/entrypoint.sh
-    entrypoint: ["sh", "-c", "chmod +x /usr/local/bin/entrypoint.sh && /usr/local/bin/entrypoint.sh"]
+    entrypoint: ["/bin/bash", "-c", "chmod +x /usr/local/bin/entrypoint.sh && /usr/local/bin/entrypoint.sh"]
     ports:
       - "8000:8000"
     depends_on:
