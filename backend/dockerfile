@@ -1,6 +1,7 @@
 FROM python:3.10.11-bullseye
 EXPOSE 8000
-COPY . /django_kdm
-WORKDIR /django_kdm
+COPY . /sveltedjango
+COPY ./public /sveltedjango/media/public
+WORKDIR /sveltedjango
 RUN pip install --no-cache-dir -r requirements.txt
 RUN python3 manage.py collectstatic --noinput

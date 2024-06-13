@@ -14,8 +14,8 @@ urlpatterns = [
     path('api/signup', views.SignUpView.as_view(), name='signup'),
     path('api/test_token', views.TestToken.as_view(), name='test_token'),
 
-    path('api/add_user_cert', views.AddCert.as_view(), name='add_user_cert'),
-    path('api/add_user_dkdm', views.AddDKDM.as_view(), name='add_user_dkdm'),
+    path('api/add_user_cert', views.CreateCert.as_view(), name='add_user_cert'),
+    path('api/add_user_dkdm', views.CreateDKDM.as_view(), name='add_user_dkdm'),
 
     path('api/get_user_certs', views.CertList.as_view(), name='get_user_certs'),
     path('api/get_user_dkdms', views.DKDMList.as_view(), name='get_user_dkdms'),
