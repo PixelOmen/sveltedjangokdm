@@ -64,7 +64,7 @@ class TestToken(APIView):
 
 
 
-class AddCert(APIView):
+class CreateCert(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [SessionAuthentication, TokenAuthentication]
 
@@ -87,7 +87,7 @@ class AddCert(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-class AddDKDM(APIView):
+class CreateDKDM(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [SessionAuthentication, TokenAuthentication]
 

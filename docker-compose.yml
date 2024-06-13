@@ -1,14 +1,14 @@
 volumes:
-  postgres_kdm_prod_volume:
-    external: true
+  postgres_volume:
+  media_volume:
 
 services:
   postgres_db:
-    container_name: "${PROJECT_NAME}_prod_postgres_db"
+    container_name: "${PROJECT_NAME}_postgres_db"
     image: postgres:15.2-alpine
     restart: always
     volumes:
-      - postgres_kdm_prod_volume:/var/lib/postgresql/data:delegated
+      - postgres_volume:/var/lib/postgresql/data:delegated
     ports:
       - ${DB_HOST_PORT}:5432
     environment:
@@ -23,6 +23,10 @@ services:
       python3 manage.py migrate &&
       gunicorn ${PROJECT_NAME}.wsgi:application --bind 0.0.0.0:8000"
     restart: always
+    volumes:
+      - media_volume:/${PROJECT_NAME}/media:delegated
+      - ./backend/entrypoint.sh:/usr/local/bin/entrypoint.sh
+    entrypoint: ["/usr/local/bin/entrypoint.sh"]
     ports:
       - "8000:8000"
     depends_on:
