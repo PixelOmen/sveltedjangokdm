@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [-d /svelteddjango/media/public]; then
+if [ -d /sveltedjango/media/public ]; then
     rm -rf /sveltedjango/media/public
 fi
 
