@@ -26,7 +26,7 @@ services:
     volumes:
       - media_volume:/${PROJECT_NAME}/media:delegated
       - ./backend/entrypoint.sh:/usr/local/bin/entrypoint.sh
-    entrypoint: ["/usr/local/bin/entrypoint.sh"]
+    entrypoint: ["sh", "-c", "chmod +x /usr/local/bin/entrypoint.sh && /usr/local/bin/entrypoint.sh"]
     ports:
       - "8000:8000"
     depends_on:
