@@ -37,6 +37,8 @@ CSRF_COOKIE_SECURE = env_str_to_bool((os.getenv('CSRF_COOKIE_SECURE')))
 
 # Application definition
 
+SIDE_ID=1
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -50,7 +52,26 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'base',
+
+    # Google auth
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google'
 ]
+
+SOCIALACCOUNT_PRODIVDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email'
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online'
+        }        
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -61,7 +82,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware'
+    'corsheaders.middleware.CorsMiddleware',
+    'allauth.account.middleware.AccountMiddleware'
 ]
 
 ROOT_URLCONF = 'sveltedjango.urls'
@@ -199,3 +221,13 @@ LOGGING = {
         },
     },
 }
+
+# Auth backends
+
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.accounts.auth_backends.AuthenticaitonBackend"
+)
+
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
